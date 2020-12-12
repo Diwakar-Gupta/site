@@ -526,9 +526,14 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'resources'),
 ]
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static/'
 
 # Define a cache
-CACHES = {}
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
+    }
+}
 
 # Authentication
 AUTHENTICATION_BACKENDS = (
