@@ -1,0 +1,80 @@
+INFO 2020-12-11 12:56:52,705 daemon Exiting due to SIGINT
+INFO 2020-12-11 14:40:10,417 daemon Exiting due to SIGINT
+INFO 2020-12-11 15:10:50,157 judge_handler Judge connected from: ('127.0.0.1', 37978)
+INFO 2020-12-11 15:10:50,226 judge_handler Judge authenticated: ('127.0.0.1', 37978) (ce-1)
+INFO 2020-12-11 15:10:59,440 judge_handler Judge disconnected from: ('127.0.0.1', 37978) with name ce-1
+INFO 2020-12-11 15:11:37,179 judge_handler Judge connected from: ('127.0.0.1', 37986)
+INFO 2020-12-11 15:11:37,184 judge_handler Judge authenticated: ('127.0.0.1', 37986) (ce-1)
+INFO 2020-12-11 15:12:42,026 judge_handler Judge disconnected from: ('127.0.0.1', 37986) with name ce-1
+INFO 2020-12-11 15:16:18,218 judge_handler Judge connected from: ('127.0.0.1', 38014)
+INFO 2020-12-11 15:16:18,223 judge_handler Judge authenticated: ('127.0.0.1', 38014) (ce-1)
+INFO 2020-12-11 15:30:24,515 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:32:35,959 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:32:36,877 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:32:36,880 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:32:38,151 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:32:39,802 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:33:35,573 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:33:38,017 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:33:48,230 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:34:02,252 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:34:16,592 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:34:17,112 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:34:20,829 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:34:21,892 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:34:24,041 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:34:24,347 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:34:32,589 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:34:33,772 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:35:04,892 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:35:05,452 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:35:08,190 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:35:09,372 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:35:11,472 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:35:11,476 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:35:11,812 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:35:18,550 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:35:19,342 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:35:28,371 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:35:30,292 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:35:32,790 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:35:33,872 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:35:33,876 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:35:40,191 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 15:35:40,431 judge_handler ce-1: Updated problem list
+INFO 2020-12-11 16:13:09,403 daemon Exiting due to SIGINT
+INFO 2020-12-12 03:04:00,291 judge_handler Judge connected from: ('127.0.0.1', 45666)
+INFO 2020-12-12 03:04:00,313 judge_handler Judge authenticated: ('127.0.0.1', 45666) (ce-1)
+ERROR 2020-12-12 03:04:00,428 judge_handler Error in packet handling (Judge-side): ce-1
+Traceback (most recent call last):
+  File "/home/diwakargupta815/site/judge/bridge/judge_handler.py", line 300, in on_packet
+    handler(data)
+  File "/home/diwakargupta815/site/judge/bridge/judge_handler.py", line 167, in on_handshake
+    self._connected()
+  File "/home/diwakargupta815/site/judge/bridge/judge_handler.py", line 122, in _connected
+    for idx, (name, version) in enumerate(self.executors[lang.key])
+KeyError: 'java11'
+INFO 2020-12-12 03:11:42,673 daemon Exiting due to SIGINT
+INFO 2020-12-12 03:12:02,587 judge_handler Judge connected from: ('127.0.0.1', 45728)
+INFO 2020-12-12 03:12:02,596 judge_handler Judge authenticated: ('127.0.0.1', 45728) (ce-1)
+ERROR 2020-12-12 03:12:02,625 judge_handler Error in packet handling (Judge-side): ce-1
+Traceback (most recent call last):
+  File "/home/diwakargupta815/site/judge/bridge/judge_handler.py", line 300, in on_packet
+    handler(data)
+  File "/home/diwakargupta815/site/judge/bridge/judge_handler.py", line 167, in on_handshake
+    self._connected()
+  File "/home/diwakargupta815/site/judge/bridge/judge_handler.py", line 122, in _connected
+    for idx, (name, version) in enumerate(self.executors[lang.key])
+KeyError: 'java11'
+INFO 2020-12-12 03:21:12,803 daemon Exiting due to SIGINT
+INFO 2020-12-12 03:21:32,669 judge_handler Judge connected from: ('127.0.0.1', 45804)
+INFO 2020-12-12 03:21:32,675 judge_handler Judge authenticated: ('127.0.0.1', 45804) (ce-1)
+ERROR 2020-12-12 03:21:32,695 judge_handler Error in packet handling (Judge-side): ce-1
+Traceback (most recent call last):
+  File "/home/diwakargupta815/site/judge/bridge/judge_handler.py", line 300, in on_packet
+    handler(data)
+  File "/home/diwakargupta815/site/judge/bridge/judge_handler.py", line 167, in on_handshake
+    self._connected()
+  File "/home/diwakargupta815/site/judge/bridge/judge_handler.py", line 122, in _connected
+    for idx, (name, version) in enumerate(self.executors[lang.key])
+KeyError: 'java11'

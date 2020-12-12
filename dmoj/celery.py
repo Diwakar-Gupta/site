@@ -9,10 +9,12 @@ app = Celery('dmoj')
 from django.conf import settings  # noqa: E402, I202, django must be imported here
 app.config_from_object(settings, namespace='CELERY')
 
-if hasattr(settings, 'CELERY_BROKER_URL_SECRET'):
-    app.conf.broker_url = settings.CELERY_BROKER_URL_SECRET
-if hasattr(settings, 'CELERY_RESULT_BACKEND_SECRET'):
-    app.conf.result_backend = settings.CELERY_RESULT_BACKEND_SECRET
+#if hasattr(settings, 'CELERY_BROKER_URL_SECRET'):
+#    app.conf.broker_url = settings.CELERY_BROKER_URL_SECRET
+app.conf.broker_url = 'redis://localhost:6379'
+#if hasattr(settings, 'CELERY_RESULT_BACKEND_SECRET'):
+#    app.conf.result_backend = settings.CELERY_RESULT_BACKEND_SECRET
+app.conf.result_backend = 'redis://localhost:6379'
 
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()
