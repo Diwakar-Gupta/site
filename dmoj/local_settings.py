@@ -310,8 +310,8 @@ LOGGING = {
 ## Python Social Auth
 # Documentation: https://python-social-auth.readthedocs.io/en/latest/
 # You can define these to enable authentication through the following services.
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '742082810734-7jh66acflh9rpibdopf5fd1l7rl68jut.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'N7pfoUn2WFoZj-Q0tJV0vOyh'
+#SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ''
+#SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
 #SOCIAL_AUTH_FACEBOOK_KEY = ''
 #SOCIAL_AUTH_FACEBOOK_SECRET = ''
 #SOCIAL_AUTH_GITHUB_SECURE_KEY = ''
