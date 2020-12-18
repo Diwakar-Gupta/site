@@ -1,0 +1,3 @@
+# install npm modules 
+npm install qu ws simplesets
+(dmojsite) $ pip3 install websocket-client

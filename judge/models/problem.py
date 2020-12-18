@@ -125,7 +125,7 @@ class Problem(models.Model):
                                                            '(e.g. 64mb = 65536 kilobytes).'),
                                                validators=[MinValueValidator(settings.DMOJ_PROBLEM_MIN_MEMORY_LIMIT),
                                                            MaxValueValidator(settings.DMOJ_PROBLEM_MAX_MEMORY_LIMIT)])
-    short_circuit = models.BooleanField(default=False)
+    short_circuit = models.BooleanField(default=True)
     points = models.FloatField(verbose_name=_('points'),
                                help_text=_('Points awarded for problem completion. '
                                            "Points are displayed with a 'p' suffix if partial."),

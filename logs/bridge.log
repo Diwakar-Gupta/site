@@ -1,80 +1,253 @@
-INFO 2020-12-11 12:56:52,705 daemon Exiting due to SIGINT
-INFO 2020-12-11 14:40:10,417 daemon Exiting due to SIGINT
-INFO 2020-12-11 15:10:50,157 judge_handler Judge connected from: ('127.0.0.1', 37978)
-INFO 2020-12-11 15:10:50,226 judge_handler Judge authenticated: ('127.0.0.1', 37978) (ce-1)
-INFO 2020-12-11 15:10:59,440 judge_handler Judge disconnected from: ('127.0.0.1', 37978) with name ce-1
-INFO 2020-12-11 15:11:37,179 judge_handler Judge connected from: ('127.0.0.1', 37986)
-INFO 2020-12-11 15:11:37,184 judge_handler Judge authenticated: ('127.0.0.1', 37986) (ce-1)
-INFO 2020-12-11 15:12:42,026 judge_handler Judge disconnected from: ('127.0.0.1', 37986) with name ce-1
-INFO 2020-12-11 15:16:18,218 judge_handler Judge connected from: ('127.0.0.1', 38014)
-INFO 2020-12-11 15:16:18,223 judge_handler Judge authenticated: ('127.0.0.1', 38014) (ce-1)
-INFO 2020-12-11 15:30:24,515 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:32:35,959 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:32:36,877 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:32:36,880 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:32:38,151 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:32:39,802 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:33:35,573 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:33:38,017 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:33:48,230 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:34:02,252 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:34:16,592 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:34:17,112 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:34:20,829 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:34:21,892 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:34:24,041 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:34:24,347 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:34:32,589 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:34:33,772 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:35:04,892 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:35:05,452 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:35:08,190 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:35:09,372 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:35:11,472 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:35:11,476 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:35:11,812 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:35:18,550 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:35:19,342 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:35:28,371 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:35:30,292 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:35:32,790 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:35:33,872 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:35:33,876 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:35:40,191 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 15:35:40,431 judge_handler ce-1: Updated problem list
-INFO 2020-12-11 16:13:09,403 daemon Exiting due to SIGINT
-INFO 2020-12-12 03:04:00,291 judge_handler Judge connected from: ('127.0.0.1', 45666)
-INFO 2020-12-12 03:04:00,313 judge_handler Judge authenticated: ('127.0.0.1', 45666) (ce-1)
-ERROR 2020-12-12 03:04:00,428 judge_handler Error in packet handling (Judge-side): ce-1
-Traceback (most recent call last):
-  File "/home/diwakargupta815/site/judge/bridge/judge_handler.py", line 300, in on_packet
-    handler(data)
-  File "/home/diwakargupta815/site/judge/bridge/judge_handler.py", line 167, in on_handshake
-    self._connected()
-  File "/home/diwakargupta815/site/judge/bridge/judge_handler.py", line 122, in _connected
-    for idx, (name, version) in enumerate(self.executors[lang.key])
-KeyError: 'java11'
-INFO 2020-12-12 03:11:42,673 daemon Exiting due to SIGINT
-INFO 2020-12-12 03:12:02,587 judge_handler Judge connected from: ('127.0.0.1', 45728)
-INFO 2020-12-12 03:12:02,596 judge_handler Judge authenticated: ('127.0.0.1', 45728) (ce-1)
-ERROR 2020-12-12 03:12:02,625 judge_handler Error in packet handling (Judge-side): ce-1
-Traceback (most recent call last):
-  File "/home/diwakargupta815/site/judge/bridge/judge_handler.py", line 300, in on_packet
-    handler(data)
-  File "/home/diwakargupta815/site/judge/bridge/judge_handler.py", line 167, in on_handshake
-    self._connected()
-  File "/home/diwakargupta815/site/judge/bridge/judge_handler.py", line 122, in _connected
-    for idx, (name, version) in enumerate(self.executors[lang.key])
-KeyError: 'java11'
-INFO 2020-12-12 03:21:12,803 daemon Exiting due to SIGINT
-INFO 2020-12-12 03:21:32,669 judge_handler Judge connected from: ('127.0.0.1', 45804)
-INFO 2020-12-12 03:21:32,675 judge_handler Judge authenticated: ('127.0.0.1', 45804) (ce-1)
-ERROR 2020-12-12 03:21:32,695 judge_handler Error in packet handling (Judge-side): ce-1
-Traceback (most recent call last):
-  File "/home/diwakargupta815/site/judge/bridge/judge_handler.py", line 300, in on_packet
-    handler(data)
-  File "/home/diwakargupta815/site/judge/bridge/judge_handler.py", line 167, in on_handshake
-    self._connected()
-  File "/home/diwakargupta815/site/judge/bridge/judge_handler.py", line 122, in _connected
-    for idx, (name, version) in enumerate(self.executors[lang.key])
-KeyError: 'java11'
+INFO 2020-12-12 14:08:05,619 judge_handler Judge connected from: ('127.0.0.1', 34016)
+INFO 2020-12-12 14:08:05,628 judge_handler Judge authenticated: ('127.0.0.1', 34016) (kalia)
+INFO 2020-12-12 14:08:49,857 judge_handler kalia: Updated problem list
+INFO 2020-12-12 14:09:03,718 judge_handler kalia: Updated problem list
+INFO 2020-12-12 14:09:03,765 judge_handler kalia: Updated problem list
+INFO 2020-12-12 14:09:35,936 judge_handler kalia: Updated problem list
+INFO 2020-12-12 14:09:46,065 judge_handler kalia: Updated problem list
+INFO 2020-12-12 14:09:48,841 judge_handler kalia: Updated problem list
+INFO 2020-12-12 14:09:53,714 judge_handler kalia: Updated problem list
+INFO 2020-12-12 14:09:53,722 judge_handler kalia: Updated problem list
+INFO 2020-12-12 14:10:20,464 judge_handler kalia: Updated problem list
+INFO 2020-12-12 14:10:22,349 judge_handler kalia: Updated problem list
+INFO 2020-12-12 14:10:25,530 judge_handler kalia: Updated problem list
+INFO 2020-12-12 14:10:27,417 judge_handler kalia: Updated problem list
+INFO 2020-12-12 14:10:27,422 judge_handler kalia: Updated problem list
+INFO 2020-12-12 14:10:32,258 judge_handler kalia: Updated problem list
+INFO 2020-12-12 14:10:32,266 judge_handler kalia: Updated problem list
+INFO 2020-12-12 14:10:34,289 judge_handler kalia: Updated problem list
+INFO 2020-12-12 14:10:39,008 judge_handler kalia: Updated problem list
+INFO 2020-12-12 14:10:41,146 judge_handler kalia: Updated problem list
+INFO 2020-12-12 14:10:42,250 judge_handler kalia: Updated problem list
+INFO 2020-12-12 14:10:42,532 judge_handler kalia: Updated problem list
+INFO 2020-12-12 14:11:06,560 judge_list Free judges: 1
+INFO 2020-12-12 14:11:06,562 judge_list Dispatched submission 1 to: kalia
+INFO 2020-12-12 14:11:06,584 judge_handler Submission acknowledged: 1
+INFO 2020-12-12 14:11:06,789 judge_handler kalia: Submission generated compiler messages: 1
+INFO 2020-12-12 14:11:07,064 judge_handler kalia: Grading has begun on: 1
+INFO 2020-12-12 14:11:07,147 judge_handler kalia: 2 test case(s) completed on: 1
+INFO 2020-12-12 14:11:07,275 judge_handler kalia: 1 test case(s) completed on: 1
+INFO 2020-12-12 14:11:07,342 judge_handler kalia: Grading has ended on: 1
+INFO 2020-12-12 14:11:07,343 judge_list Judge available after grading 1: kalia
+INFO 2020-12-12 14:14:07,401 judge_list Free judges: 1
+INFO 2020-12-12 14:14:07,402 judge_list Dispatched submission 2 to: kalia
+INFO 2020-12-12 14:14:07,428 judge_handler Submission acknowledged: 2
+INFO 2020-12-12 14:14:07,559 judge_handler kalia: Submission generated compiler messages: 2
+INFO 2020-12-12 14:14:07,626 judge_handler kalia: Grading has begun on: 2
+INFO 2020-12-12 14:14:07,674 judge_handler kalia: 1 test case(s) completed on: 2
+INFO 2020-12-12 14:14:07,918 judge_handler kalia: 2 test case(s) completed on: 2
+INFO 2020-12-12 14:14:08,956 judge_handler kalia: Grading has ended on: 2
+INFO 2020-12-12 14:14:08,956 judge_list Judge available after grading 2: kalia
+INFO 2020-12-12 14:14:37,796 daemon Exiting due to SIGINT
+INFO 2020-12-12 14:14:39,102 judge_handler Judge disconnected from: ('127.0.0.1', 34016) with name kalia
+INFO 2020-12-12 14:18:57,431 judge_handler Judge connected from: ('127.0.0.1', 34418)
+INFO 2020-12-12 14:18:57,437 judge_handler Judge authenticated: ('127.0.0.1', 34418) (kalia)
+INFO 2020-12-12 14:19:08,590 judge_list Free judges: 1
+INFO 2020-12-12 14:19:08,592 judge_list Dispatched submission 2 to: kalia
+INFO 2020-12-12 14:19:08,613 judge_handler Submission acknowledged: 2
+INFO 2020-12-12 14:19:08,909 judge_handler kalia: Submission generated compiler messages: 2
+INFO 2020-12-12 14:19:09,129 judge_handler kalia: Grading has begun on: 2
+INFO 2020-12-12 14:19:09,257 judge_handler kalia: 3 test case(s) completed on: 2
+INFO 2020-12-12 14:19:09,394 judge_handler kalia: Grading has ended on: 2
+INFO 2020-12-12 14:19:09,395 judge_list Judge available after grading 2: kalia
+INFO 2020-12-12 14:19:39,527 judge_list Free judges: 1
+INFO 2020-12-12 14:19:39,528 judge_list Dispatched submission 2 to: kalia
+INFO 2020-12-12 14:19:39,565 judge_handler Submission acknowledged: 2
+INFO 2020-12-12 14:19:39,639 judge_handler kalia: Submission generated compiler messages: 2
+INFO 2020-12-12 14:19:39,710 judge_handler kalia: Grading has begun on: 2
+INFO 2020-12-12 14:19:39,784 judge_handler kalia: 1 test case(s) completed on: 2
+INFO 2020-12-12 14:19:39,991 judge_handler kalia: 2 test case(s) completed on: 2
+INFO 2020-12-12 14:19:40,885 judge_handler kalia: Grading has ended on: 2
+INFO 2020-12-12 14:19:40,887 judge_list Judge available after grading 2: kalia
+INFO 2020-12-12 14:26:26,719 judge_list Free judges: 1
+INFO 2020-12-12 14:26:26,720 judge_list Dispatched submission 2 to: kalia
+INFO 2020-12-12 14:26:26,754 judge_handler Submission acknowledged: 2
+INFO 2020-12-12 14:26:26,830 judge_handler kalia: Submission generated compiler messages: 2
+INFO 2020-12-12 14:26:26,899 judge_handler kalia: Grading has begun on: 2
+INFO 2020-12-12 14:26:26,970 judge_handler kalia: 3 test case(s) completed on: 2
+INFO 2020-12-12 14:26:27,034 judge_handler kalia: Grading has ended on: 2
+INFO 2020-12-12 14:26:27,035 judge_list Judge available after grading 2: kalia
+INFO 2020-12-12 14:26:38,706 judge_list Free judges: 1
+INFO 2020-12-12 14:26:38,707 judge_list Dispatched submission 3 to: kalia
+INFO 2020-12-12 14:26:38,729 judge_handler Submission acknowledged: 3
+INFO 2020-12-12 14:26:38,801 judge_handler kalia: Submission generated compiler messages: 3
+INFO 2020-12-12 14:26:38,910 judge_handler kalia: Grading has begun on: 3
+INFO 2020-12-12 14:26:38,978 judge_handler kalia: 1 test case(s) completed on: 3
+INFO 2020-12-12 14:26:39,089 judge_handler kalia: 2 test case(s) completed on: 3
+INFO 2020-12-12 14:26:39,157 judge_handler kalia: Grading has ended on: 3
+INFO 2020-12-12 14:26:39,158 judge_list Judge available after grading 3: kalia
+INFO 2020-12-12 14:26:51,029 judge_list Abort request: 3
+INFO 2020-12-12 14:26:55,817 judge_handler Judge disconnected from: ('127.0.0.1', 34418) with name kalia
+INFO 2020-12-12 14:27:18,657 judge_list Free judges: 0
+INFO 2020-12-12 14:27:18,658 judge_list Queued submission: 3
+INFO 2020-12-12 14:27:24,583 judge_handler Judge connected from: ('127.0.0.1', 34458)
+INFO 2020-12-12 14:27:24,591 judge_handler Judge authenticated: ('127.0.0.1', 34458) (kalia)
+INFO 2020-12-12 14:27:24,606 judge_list Dispatched queued submission 3: kalia
+INFO 2020-12-12 14:27:24,776 judge_handler Submission acknowledged: 3
+INFO 2020-12-12 14:27:24,853 judge_handler kalia: Submission generated compiler messages: 3
+INFO 2020-12-12 14:27:24,888 judge_handler kalia: Grading has begun on: 3
+INFO 2020-12-12 14:27:24,924 judge_handler kalia: 1 test case(s) completed on: 3
+INFO 2020-12-12 14:27:25,000 judge_handler kalia: 2 test case(s) completed on: 3
+INFO 2020-12-12 14:27:25,101 judge_handler kalia: Grading has ended on: 3
+INFO 2020-12-12 14:27:25,102 judge_list Judge available after grading 3: kalia
+INFO 2020-12-12 14:27:34,529 judge_handler Judge disconnected from: ('127.0.0.1', 34458) with name kalia
+INFO 2020-12-12 14:27:36,216 daemon Exiting due to SIGINT
+INFO 2020-12-12 14:52:11,095 judge_handler Judge connected from: ('127.0.0.1', 37382)
+INFO 2020-12-12 14:52:11,101 judge_handler Judge authenticated: ('127.0.0.1', 37382) (kalia)
+INFO 2020-12-12 14:54:02,593 judge_list Free judges: 1
+INFO 2020-12-12 14:54:02,594 judge_list Dispatched submission 4 to: kalia
+INFO 2020-12-12 14:54:02,621 judge_handler Submission acknowledged: 4
+INFO 2020-12-12 14:54:02,811 judge_handler kalia: Submission generated compiler messages: 4
+INFO 2020-12-12 14:54:02,842 judge_handler kalia: Grading has begun on: 4
+INFO 2020-12-12 14:54:02,902 judge_handler kalia: 3 test case(s) completed on: 4
+INFO 2020-12-12 14:54:02,977 judge_handler kalia: Grading has ended on: 4
+INFO 2020-12-12 14:54:02,977 judge_list Judge available after grading 4: kalia
+INFO 2020-12-12 14:54:14,255 judge_list Free judges: 1
+INFO 2020-12-12 14:54:14,256 judge_list Dispatched submission 4 to: kalia
+INFO 2020-12-12 14:54:14,279 judge_handler Submission acknowledged: 4
+INFO 2020-12-12 14:54:14,423 judge_handler kalia: Submission generated compiler messages: 4
+INFO 2020-12-12 14:54:14,463 judge_handler kalia: Grading has begun on: 4
+INFO 2020-12-12 14:54:14,575 judge_handler kalia: 1 test case(s) completed on: 4
+INFO 2020-12-12 14:54:14,675 judge_handler kalia: 2 test case(s) completed on: 4
+INFO 2020-12-12 14:54:14,777 judge_handler kalia: Grading has ended on: 4
+INFO 2020-12-12 14:54:14,778 judge_list Judge available after grading 4: kalia
+INFO 2020-12-12 14:54:25,579 judge_list Free judges: 1
+INFO 2020-12-12 14:54:25,580 judge_list Dispatched submission 4 to: kalia
+INFO 2020-12-12 14:54:28,581 judge_handler Submission acknowledged: 4
+INFO 2020-12-12 14:54:28,715 judge_handler kalia: Submission generated compiler messages: 4
+INFO 2020-12-12 14:54:28,816 judge_handler kalia: Grading has begun on: 4
+INFO 2020-12-12 14:54:28,853 judge_handler kalia: 1 test case(s) completed on: 4
+INFO 2020-12-12 14:54:28,929 judge_handler kalia: 2 test case(s) completed on: 4
+INFO 2020-12-12 14:54:29,194 judge_handler kalia: Grading has ended on: 4
+INFO 2020-12-12 14:54:29,196 judge_list Judge available after grading 4: kalia
+INFO 2020-12-12 14:54:58,368 judge_list Free judges: 1
+INFO 2020-12-12 14:54:58,370 judge_list Dispatched submission 4 to: kalia
+INFO 2020-12-12 14:54:58,408 judge_handler Submission acknowledged: 4
+INFO 2020-12-12 14:54:58,554 judge_handler kalia: Submission generated compiler messages: 4
+INFO 2020-12-12 14:54:58,767 judge_handler kalia: Grading has begun on: 4
+INFO 2020-12-12 14:54:58,803 judge_handler kalia: 3 test case(s) completed on: 4
+INFO 2020-12-12 14:54:58,868 judge_handler kalia: Grading has ended on: 4
+INFO 2020-12-12 14:54:58,869 judge_list Judge available after grading 4: kalia
+INFO 2020-12-12 14:55:12,766 judge_list Free judges: 1
+INFO 2020-12-12 14:55:12,766 judge_list Dispatched submission 4 to: kalia
+INFO 2020-12-12 14:55:12,836 judge_handler Submission acknowledged: 4
+INFO 2020-12-12 14:55:12,977 judge_handler kalia: Submission generated compiler messages: 4
+INFO 2020-12-12 14:55:13,267 judge_handler kalia: Grading has begun on: 4
+INFO 2020-12-12 14:55:14,413 judge_handler kalia: 1 test case(s) completed on: 4
+INFO 2020-12-12 14:55:15,897 judge_handler kalia: 2 test case(s) completed on: 4
+INFO 2020-12-12 14:55:16,145 judge_handler kalia: Grading has ended on: 4
+INFO 2020-12-12 14:55:16,146 judge_list Judge available after grading 4: kalia
+INFO 2020-12-12 14:55:17,209 judge_list Free judges: 1
+INFO 2020-12-12 14:55:17,209 judge_list Dispatched submission 4 to: kalia
+INFO 2020-12-12 14:55:17,220 judge_handler Submission acknowledged: 4
+INFO 2020-12-12 14:55:17,295 judge_handler kalia: Submission generated compiler messages: 4
+INFO 2020-12-12 14:55:17,327 judge_handler kalia: Grading has begun on: 4
+INFO 2020-12-12 14:55:17,478 judge_handler kalia: 3 test case(s) completed on: 4
+INFO 2020-12-12 14:55:17,719 judge_handler kalia: Grading has ended on: 4
+INFO 2020-12-12 14:55:17,720 judge_list Judge available after grading 4: kalia
+INFO 2020-12-12 14:55:19,248 judge_list Free judges: 1
+INFO 2020-12-12 14:55:19,248 judge_list Dispatched submission 4 to: kalia
+INFO 2020-12-12 14:55:19,294 judge_handler Submission acknowledged: 4
+INFO 2020-12-12 14:55:19,363 judge_handler kalia: Submission generated compiler messages: 4
+INFO 2020-12-12 14:55:19,402 judge_handler kalia: Grading has begun on: 4
+INFO 2020-12-12 14:55:19,539 judge_handler kalia: 3 test case(s) completed on: 4
+INFO 2020-12-12 14:55:19,772 judge_handler kalia: Grading has ended on: 4
+INFO 2020-12-12 14:55:19,773 judge_list Judge available after grading 4: kalia
+INFO 2020-12-12 14:55:22,489 judge_list Free judges: 1
+INFO 2020-12-12 14:55:22,490 judge_list Dispatched submission 4 to: kalia
+INFO 2020-12-12 14:55:22,514 judge_handler Submission acknowledged: 4
+INFO 2020-12-12 14:55:22,944 judge_handler kalia: Submission generated compiler messages: 4
+INFO 2020-12-12 14:55:22,978 judge_handler kalia: Grading has begun on: 4
+INFO 2020-12-12 14:55:23,048 judge_handler kalia: 3 test case(s) completed on: 4
+INFO 2020-12-12 14:55:23,157 judge_handler kalia: Grading has ended on: 4
+INFO 2020-12-12 14:55:23,158 judge_list Judge available after grading 4: kalia
+INFO 2020-12-12 14:55:24,142 judge_list Free judges: 1
+INFO 2020-12-12 14:55:24,143 judge_list Dispatched submission 4 to: kalia
+INFO 2020-12-12 14:55:24,166 judge_handler Submission acknowledged: 4
+INFO 2020-12-12 14:55:24,295 judge_handler kalia: Submission generated compiler messages: 4
+INFO 2020-12-12 14:55:24,351 judge_handler kalia: Grading has begun on: 4
+INFO 2020-12-12 14:55:24,387 judge_handler kalia: 1 test case(s) completed on: 4
+INFO 2020-12-12 14:55:24,493 judge_handler kalia: 2 test case(s) completed on: 4
+INFO 2020-12-12 14:55:24,571 judge_handler kalia: Grading has ended on: 4
+INFO 2020-12-12 14:55:24,572 judge_list Judge available after grading 4: kalia
+INFO 2020-12-12 14:55:25,361 judge_list Free judges: 1
+INFO 2020-12-12 14:55:25,363 judge_list Dispatched submission 4 to: kalia
+INFO 2020-12-12 14:55:25,383 judge_handler Submission acknowledged: 4
+INFO 2020-12-12 14:55:25,520 judge_handler kalia: Submission generated compiler messages: 4
+INFO 2020-12-12 14:55:25,552 judge_handler kalia: Grading has begun on: 4
+INFO 2020-12-12 14:55:25,638 judge_handler kalia: 1 test case(s) completed on: 4
+INFO 2020-12-12 14:55:25,759 judge_handler kalia: 2 test case(s) completed on: 4
+INFO 2020-12-12 14:55:26,334 judge_handler kalia: Grading has ended on: 4
+INFO 2020-12-12 14:55:26,335 judge_list Judge available after grading 4: kalia
+INFO 2020-12-12 14:55:26,722 judge_list Free judges: 1
+INFO 2020-12-12 14:55:26,723 judge_list Dispatched submission 4 to: kalia
+INFO 2020-12-12 14:55:26,747 judge_handler Submission acknowledged: 4
+INFO 2020-12-12 14:55:26,888 judge_handler kalia: Submission generated compiler messages: 4
+INFO 2020-12-12 14:55:27,006 judge_handler kalia: Grading has begun on: 4
+INFO 2020-12-12 14:55:27,080 judge_handler kalia: 3 test case(s) completed on: 4
+INFO 2020-12-12 14:55:27,151 judge_handler kalia: Grading has ended on: 4
+INFO 2020-12-12 14:55:27,151 judge_list Judge available after grading 4: kalia
+INFO 2020-12-12 14:55:28,108 judge_list Free judges: 1
+INFO 2020-12-12 14:55:28,109 judge_list Dispatched submission 4 to: kalia
+INFO 2020-12-12 14:55:28,131 judge_handler Submission acknowledged: 4
+INFO 2020-12-12 14:55:28,319 judge_handler kalia: Submission generated compiler messages: 4
+INFO 2020-12-12 14:55:28,398 judge_handler kalia: Grading has begun on: 4
+INFO 2020-12-12 14:55:28,479 judge_handler kalia: 1 test case(s) completed on: 4
+INFO 2020-12-12 14:55:28,765 judge_handler kalia: 2 test case(s) completed on: 4
+INFO 2020-12-12 14:55:28,935 judge_handler kalia: Grading has ended on: 4
+INFO 2020-12-12 14:55:28,936 judge_list Judge available after grading 4: kalia
+INFO 2020-12-12 14:55:32,254 judge_list Free judges: 1
+INFO 2020-12-12 14:55:32,256 judge_list Dispatched submission 4 to: kalia
+INFO 2020-12-12 14:55:32,276 judge_handler Submission acknowledged: 4
+INFO 2020-12-12 14:55:32,416 judge_handler kalia: Submission generated compiler messages: 4
+INFO 2020-12-12 14:55:32,448 judge_handler kalia: Grading has begun on: 4
+INFO 2020-12-12 14:55:32,589 judge_handler kalia: 3 test case(s) completed on: 4
+INFO 2020-12-12 14:55:32,705 judge_handler kalia: Grading has ended on: 4
+INFO 2020-12-12 14:55:32,707 judge_list Judge available after grading 4: kalia
+INFO 2020-12-12 14:55:33,578 judge_list Free judges: 1
+INFO 2020-12-12 14:55:33,579 judge_list Dispatched submission 4 to: kalia
+INFO 2020-12-12 14:55:33,602 judge_handler Submission acknowledged: 4
+INFO 2020-12-12 14:55:33,730 judge_handler kalia: Submission generated compiler messages: 4
+INFO 2020-12-12 14:55:33,793 judge_handler kalia: Grading has begun on: 4
+INFO 2020-12-12 14:55:33,973 judge_handler kalia: 3 test case(s) completed on: 4
+INFO 2020-12-12 14:55:34,807 judge_handler kalia: Grading has ended on: 4
+INFO 2020-12-12 14:55:34,808 judge_list Judge available after grading 4: kalia
+INFO 2020-12-12 14:55:36,826 judge_list Free judges: 1
+INFO 2020-12-12 14:55:36,827 judge_list Dispatched submission 4 to: kalia
+INFO 2020-12-12 14:55:37,922 judge_handler Submission acknowledged: 4
+INFO 2020-12-12 14:55:39,906 judge_handler kalia: Submission generated compiler messages: 4
+INFO 2020-12-12 14:55:40,237 judge_handler kalia: Grading has begun on: 4
+INFO 2020-12-12 14:55:40,354 judge_handler kalia: 1 test case(s) completed on: 4
+INFO 2020-12-12 14:55:40,633 judge_handler kalia: 2 test case(s) completed on: 4
+INFO 2020-12-12 14:55:40,745 judge_handler kalia: Grading has ended on: 4
+INFO 2020-12-12 14:55:40,747 judge_list Judge available after grading 4: kalia
+INFO 2020-12-12 14:55:41,394 judge_list Free judges: 1
+INFO 2020-12-12 14:55:41,395 judge_list Dispatched submission 4 to: kalia
+INFO 2020-12-12 14:55:41,424 judge_handler Submission acknowledged: 4
+INFO 2020-12-12 14:55:41,558 judge_handler kalia: Submission generated compiler messages: 4
+INFO 2020-12-12 14:55:42,419 judge_handler kalia: Grading has begun on: 4
+INFO 2020-12-12 14:55:43,222 judge_handler kalia: 1 test case(s) completed on: 4
+INFO 2020-12-12 14:55:43,908 judge_handler kalia: 2 test case(s) completed on: 4
+INFO 2020-12-12 14:55:44,082 judge_handler kalia: Grading has ended on: 4
+INFO 2020-12-12 14:55:44,083 judge_list Judge available after grading 4: kalia
+INFO 2020-12-12 14:55:50,290 judge_list Free judges: 1
+INFO 2020-12-12 14:55:50,291 judge_list Dispatched submission 4 to: kalia
+INFO 2020-12-12 14:55:50,314 judge_handler Submission acknowledged: 4
+INFO 2020-12-12 14:55:51,597 judge_handler kalia: Submission generated compiler messages: 4
+INFO 2020-12-12 14:55:52,692 judge_handler kalia: Grading has begun on: 4
+INFO 2020-12-12 14:55:52,763 judge_handler kalia: 3 test case(s) completed on: 4
+INFO 2020-12-12 14:55:53,867 judge_handler kalia: Grading has ended on: 4
+INFO 2020-12-12 14:55:53,869 judge_list Judge available after grading 4: kalia
+INFO 2020-12-12 14:55:55,461 judge_list Free judges: 1
+INFO 2020-12-12 14:55:55,462 judge_list Dispatched submission 4 to: kalia
+INFO 2020-12-12 14:55:55,484 judge_handler Submission acknowledged: 4
+INFO 2020-12-12 14:55:56,777 judge_handler kalia: Submission generated compiler messages: 4
+INFO 2020-12-12 14:55:58,510 judge_handler kalia: Grading has begun on: 4
+INFO 2020-12-12 14:55:59,266 judge_handler kalia: 3 test case(s) completed on: 4
+INFO 2020-12-12 14:56:00,949 judge_handler kalia: Grading has ended on: 4
+INFO 2020-12-12 14:56:00,951 judge_list Judge available after grading 4: kalia
+INFO 2020-12-12 14:56:17,511 judge_list Abort request: 4
+INFO 2020-12-12 14:56:19,417 judge_list Abort request: 4
+INFO 2020-12-12 14:56:21,724 judge_list Abort request: 4
+INFO 2020-12-12 14:56:43,967 judge_handler Judge disconnected from: ('127.0.0.1', 37382) with name kalia
+INFO 2020-12-12 14:56:44,204 daemon Exiting due to SIGINT
