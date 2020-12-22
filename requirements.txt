@@ -35,3 +35,4 @@ lupa
 netaddr
 webauthn
 bleach
+djangorestframework

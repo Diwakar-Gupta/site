@@ -161,6 +161,9 @@ class ProblemDetail(ProblemMixin, SolvedProblemMixin, CommentedDetailView):
         context = super(ProblemDetail, self).get_context_data(**kwargs)
         user = self.request.user
         authed = user.is_authenticated
+        print(kwargs)
+        if 'course' in kwargs:
+            context['course'] = kwargs.get('course')
         context['has_submissions'] = authed and Submission.objects.filter(user=user.profile,
                                                                           problem=self.object).exists()
         contest_problem = (None if not authed or user.profile.current_contest is None else
@@ -617,6 +620,17 @@ class ProblemSubmit(LoginRequiredMixin, ProblemMixin, TitleMixin, SingleObjectFo
             return generic_message(self.request, _('Too many submissions'),
                                    _('You have exceeded the submission limit for this problem.'))
 
+        if 'course' in self.kwargs:
+            profile = self.request.user.profile
+            from course.models import CourseParticipation, Course, CourseProblem
+            course = get_object_or_404(Course, key=self.kwargs.get('course'))
+            self.course_profile = get_object_or_404(CourseParticipation, course=course, user=profile)
+            problem = Problem.objects.get(code=self.kwargs.get('problem'))
+            course_problem = CourseProblem.objects.filter(course=course, problem=problem)
+            if not course_problem.exists():
+                raise Http404
+            self.course_problem = course_problem.first()
+
         with transaction.atomic():
             self.new_submission = form.save()
 
@@ -636,6 +650,11 @@ class ProblemSubmit(LoginRequiredMixin, ProblemMixin, TitleMixin, SingleObjectFo
         # Save a query.
         self.new_submission.source = source
         self.new_submission.judge(judge_id=form.cleaned_data['judge'])
+
+        if 'course' in self.kwargs:
+            from course.models import CourseSubmission
+            course_submission = CourseSubmission(participation=self.course_profile, submission=self.new_submission, problem=self.course_problem)
+            course_submission.save()
 
         return super().form_valid(form)
 

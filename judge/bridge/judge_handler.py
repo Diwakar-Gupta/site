@@ -421,6 +421,13 @@ class JudgeHandler(ZlibPacketHandler):
         if hasattr(submission, 'contest'):
             participation = submission.contest.participation
             event.post('contest_%d' % participation.contest_id, {'type': 'update'})
+
+        if hasattr(submission, 'course'):
+            course_submission = submission.course
+            # participation = submission.course.participation
+            course_submission.update()
+            # event.post('contest_%d' % participation.contest_id, {'type': 'update'})
+
         self._post_update_submission(submission.id, 'grading-end', done=True)
 
     def on_compile_error(self, packet):

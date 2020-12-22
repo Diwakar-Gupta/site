@@ -112,9 +112,15 @@
             <div class="no-submissions-left submissions-left">{{ _('0 submissions left') }}</div>
         {% endif %}
     {% else %}
-        <a href="{{ url('problem_submit', problem.code) }}" class="unselectable button full">
-            {{ _('Submit solution') }}
-        </a>
+        {% if course %}
+            <a href="{{ url('problem_submit_course', problem.code, course) }}" class="unselectable button full">
+                {{ _('Submit solution') }}
+            </a>
+        {% else %}
+            <a href="{{ url('problem_submit', problem.code) }}" class="unselectable button full">
+                {{ _('Submit solution') }}
+            </a>
+        {% endif %}
     {% endif %}
 
     <hr style="padding-bottom: 0.3em">

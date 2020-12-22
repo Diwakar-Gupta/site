@@ -249,6 +249,8 @@ INSTALLED_APPS += (
     'impersonate',
     'django_jinja',
     'martor',
+    'rest_framework',
+    'course',
 )
 
 MIDDLEWARE = (

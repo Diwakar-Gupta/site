@@ -98,8 +98,10 @@ def paged_list_view(view, name):
         url(r'^(?P<page>\d+)$', view.as_view(), name=name),
     ])
 
+from django.urls import path, include
 
 urlpatterns = [
+    path('c/', include('course.urls')),
     url(r'^$', blog.PostList.as_view(template_name='home.html', title=_('Home')), kwargs={'page': 1}, name='home'),
     url(r'^500/$', exception),
     url(r'^admin/', admin.site.urls),
@@ -112,12 +114,17 @@ urlpatterns = [
 
     url(r'^problem/(?P<problem>[^/]+)', include([
         url(r'^$', problem.ProblemDetail.as_view(), name='problem_detail'),
+        path('/c/<str:course>', problem.ProblemDetail.as_view()),
+
         url(r'^/editorial$', problem.ProblemSolution.as_view(), name='problem_editorial'),
         url(r'^/raw$', problem.ProblemRaw.as_view(), name='problem_raw'),
         url(r'^/pdf$', problem.ProblemPdfView.as_view(), name='problem_pdf'),
         url(r'^/pdf/(?P<language>[a-z-]+)$', problem.ProblemPdfView.as_view(), name='problem_pdf'),
         url(r'^/clone', problem.ProblemClone.as_view(), name='problem_clone'),
         url(r'^/submit$', problem.ProblemSubmit.as_view(), name='problem_submit'),
+        path('/submit/c/<str:course>', problem.ProblemSubmit.as_view(), name='problem_submit_course'),
+        
+
         url(r'^/resubmit/(?P<submission>\d+)$', problem.ProblemSubmit.as_view(), name='problem_submit'),
 
         url(r'^/rank/', paged_list_view(ranked_submission.RankedSubmissions, 'ranked_submissions')),

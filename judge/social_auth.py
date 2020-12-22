@@ -49,7 +49,7 @@ def slugify_username(username, renotword=re.compile(r'[^\w]')):
 
 
 def verify_email(backend, details, *args, **kwargs):
-    if not details['email']:
+    if not details['email'] or not details['email'].endswith('@saitm.org'):
         raise InvalidEmail(backend)
 
 
