@@ -33,3 +33,9 @@ class CourseListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = ['key', 'name', 'is_private', 'user_count', 'is_locked', 'is_visible']
+
+
+class CourseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = ['key', 'name', 'is_private', 'user_count', 'is_locked', 'is_visible', 'description']

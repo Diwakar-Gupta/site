@@ -2,7 +2,7 @@ from django.http.request import HttpHeaders
 from django.http.response import HttpResponseForbidden
 from judge.models import submission
 from .models import Course, CourseParticipation, CourseSubmission, SubTopic, CourseProblem, Topic
-from .serializers import CourseListSerializer, TopicSerializer, SubTopicSerializer, CourseProblemSerializer
+from .serializers import CourseListSerializer, TopicSerializer, SubTopicSerializer, CourseProblemSerializer, CourseSerializer
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -19,8 +19,13 @@ class ObjectList(APIView):
 
     def get(self, request, format=None):
         queryset = self.get_queryset()
-        serializer = self.serializer_class(queryset, many=True)
-        return Response(serializer.data)
+        serializer = self.serializer_class(queryset, many=True).data
+        profile = request.user.profile if request.user.is_authenticated else None
+        if profile:
+            for c, cs in zip(queryset, serializer):
+                cs['enrolled'] = c.users.filter(user=profile).exists()
+
+        return Response(serializer)
 
     # def post(self, request, format=None):
     #     serializer = SnippetSerializer(data=request.data)
@@ -34,7 +39,7 @@ class CourseDetail(APIView):
     model = Course
     slug_field = 'key'
     slug_url_kwarg = 'course'
-    serializer_class = CourseListSerializer
+    serializer_class = CourseSerializer
 
     def get_object(self):
         return get_object_or_404(self.model, key=self.kwargs.get(self.slug_url_kwarg))
@@ -103,10 +108,11 @@ class SubTopicDetail(APIView):
 
         for cp, ps in zip(courseprobelm, probelmserialized):
             ps['url'] = cp.problem.get_absolute_url()+'/c/'+self.course.key
+            ps['name'] = cp.problem.name
             if course_profile:
                 submissions = course_profile.submissions
                 if submissions.exists():
-                    solved = submissions.filter(submission__result='AC').exists()
+                    solved = submissions.filter(problem=cp, submission__result='AC').exists()
                     ps['result'] = solved
                 
 
@@ -126,7 +132,7 @@ class Enroll(APIView):
         course = self.get_course_object()
         if course.can_join(user):
             course_profile, created = CourseParticipation.objects.get_or_create(course = course, user=user.profile)
-            return Response({'created':True})
+            return Response({'created':True}, status=status.HTTP_201_CREATED)
         else:
             HttpResponseForbidden('cant join')
 

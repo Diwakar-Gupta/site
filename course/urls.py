@@ -1,6 +1,7 @@
 from django.urls import path, include
 from . import views
 from django.contrib import admin
+from django.views.generic import TemplateView
 
 urlpatterns = [
     # path('site/', , name='course_view'),
@@ -13,4 +14,6 @@ urlpatterns = [
             path('<str:topic>/<str:subtopic>/', views.SubTopicDetail.as_view())
         ]))
     ])),
+    path('s/', TemplateView.as_view(template_name='index.html')),
+    path('s/<path:resource>', TemplateView.as_view(template_name='index.html')),
 ]

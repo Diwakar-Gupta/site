@@ -101,7 +101,7 @@ def paged_list_view(view, name):
 from django.urls import path, include
 
 urlpatterns = [
-    path('c/', include('course.urls')),
+    path('courses/', include('course.urls')),
     url(r'^$', blog.PostList.as_view(template_name='home.html', title=_('Home')), kwargs={'page': 1}, name='home'),
     url(r'^500/$', exception),
     url(r'^admin/', admin.site.urls),

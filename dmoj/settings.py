@@ -305,6 +305,7 @@ TEMPLATES = [
         'BACKEND': 'django_jinja.backend.Jinja2',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'courseview/build')
         ],
         'APP_DIRS': False,
         'OPTIONS': {
@@ -526,6 +527,7 @@ STATICFILES_FINDERS = (
 )
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'resources'),
+    os.path.join(BASE_DIR, 'courseview/build/static')
 ]
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static/'
