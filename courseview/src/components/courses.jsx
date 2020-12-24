@@ -1,18 +1,33 @@
 import React, { Component } from "react";
-import axiosBase from "axios";
+import axios from "axios";
 import { NavLink, Link } from "react-router-dom";
 import Loading from "./loading";
-import { Button, Card, CardColumns, Breadcrumb } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  CardColumns,
+  Breadcrumb,
+  Col,
+  Row,
+} from "react-bootstrap";
 
 export default class Courses extends Component {
   state = {
-    loading: true,
+    loading: false,
     error: "",
     courses: [],
   };
 
   componentDidMount() {
-    axiosBase
+    this.fetchCourses();
+  }
+
+  fetchCourses = () => {
+    this.setState({
+      loading: true,
+      error: "",
+    });
+    axios
       .get("/courses/api/courses/")
       .then((res) => {
         console.log(res.data);
@@ -33,7 +48,27 @@ export default class Courses extends Component {
           this.setState({ loading: false, error: err.message });
         }
       });
-  }
+  };
+
+  enrollTo = (coursekey) => {
+    axios
+      .get(`/courses/api/course/${coursekey}/enroll`)
+      .then((res) => {
+        console.log(res)
+        this.fetchCourses()
+      })
+      .catch((err) => {
+        console.log(err)
+        this.setState({
+          error:  err.responst.status===403?err.responst.data : 'some thing wrong happend'
+        })
+        setTimeout(() => {
+          this.setState({
+            error:''
+          })
+        }, 2000);
+      });
+  };
 
   renderCourse = (course) => {
     return (
@@ -49,9 +84,22 @@ export default class Courses extends Component {
               Continue Course
             </Button>
           ) : (
-            <Button variant="primary" to={`/courses/s/${course.key}`} as={Link}>
-              Enroll
-            </Button>
+            <Row>
+              <Col>
+                <Button
+                  variant="primary"
+                  to={`/courses/s/${course.key}`}
+                  as={Link}
+                >
+                  View
+                </Button>
+              </Col>
+              <Col>
+                <Button variant="primary" onClick={()=>{this.enrollTo(course.key)}}>
+                  Enroll
+                </Button>
+              </Col>
+            </Row>
           )}
         </Card.Body>
       </Card>

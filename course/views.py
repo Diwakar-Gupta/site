@@ -132,7 +132,6 @@ class Enroll(APIView):
         course = self.get_course_object()
         if course.can_join(user):
             course_profile, created = CourseParticipation.objects.get_or_create(course = course, user=user.profile)
-            return Response({'created':True}, status=status.HTTP_201_CREATED)
-        else:
-            HttpResponseForbidden('cant join')
+            return Response(status=status.HTTP_201_CREATED)
+        return HttpResponseForbidden('cant join')
 

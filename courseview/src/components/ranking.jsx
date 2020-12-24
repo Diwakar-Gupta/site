@@ -5,7 +5,7 @@ import { Jumbotron, ListGroup } from "react-bootstrap";
 
 export default class Ranking extends Component {
   state = {
-    // course: this.props.course,
+    course: this.props.course,
     ranklist: null,
     loading: false,
   };
@@ -15,22 +15,25 @@ export default class Ranking extends Component {
   }
 
   fetchRanking = () => {
-    if (this.props.course) {
+    if (this.state.course) {
       this.setState({
         loading: true,
       });
       this.setState({
         ranklist: [{ name: "diwakar gupta" }],
-        loading: false
+        loading: false,
       });
     }
   };
 
-  // static getDerivedStateFromProps(nextProps, prevState) {
-  //     return {
-  //         course:nextProps.course
-  //     }
-  // }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.course != prevState.course) {
+      return {
+        course: nextProps.course,
+      };
+    }
+    return null;
+  }
 
   render() {
     return (

@@ -213,13 +213,16 @@ class Course(models.Model):
 
     # @cached_property
     def can_join(self, user):
+        if not user.is_authenticated:
+            return False
+        is_banned = self.banned_users.filter(id = user.profile.id).exists()
+        if is_banned or self.is_locked:
+            return False
+        
         if user.is_authenticated:
             in_users = self.private_courseants.filter(id=user.profile.id).exists()
             in_org = self.organizations.filter(id__in=user.profile.organizations.all()).exists()
         else:
-            return False
-        is_banned = self.banned_users.objects.filter(id = user.profile).exists()
-        if is_banned or self.is_locked:
             return False
         
         if self.is_private:
@@ -232,7 +235,7 @@ class Course(models.Model):
                 return True
             else:
                 return False
-        return False
+        return True
 
     # @property
     # def time_before_start(self):
