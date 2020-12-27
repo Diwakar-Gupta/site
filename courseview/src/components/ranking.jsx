@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-import Loading from "./loading";
-// import axios from "axios";
-import { Jumbotron, ListGroup } from "react-bootstrap";
+import Loading from "./util/loading";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import { Jumbotron, ListGroup, Col, Row } from "react-bootstrap";
+import { FaSync } from "react-icons/fa";
 
 export default class Ranking extends Component {
   state = {
     course: this.props.course,
-    ranklist: null,
+    ranklist: [],
     loading: false,
   };
 
@@ -19,10 +21,23 @@ export default class Ranking extends Component {
       this.setState({
         loading: true,
       });
-      this.setState({
-        ranklist: [{ name: "diwakar gupta" }],
-        loading: false,
-      });
+      axios
+        .get(`/courses/api/course/${this.state.course}/rank/`, {
+          params: { size: 10 },
+        })
+        .then((res) => {
+          console.log(res.data);
+          this.setState({
+            loading: false,
+            ranklist: res.data,
+          });
+        })
+        .catch((mes) => {
+          this.setState({
+            loading: false,
+            ranklist: [],
+          });
+        });
     }
   };
 
@@ -38,14 +53,29 @@ export default class Ranking extends Component {
   render() {
     return (
       <Jumbotron>
-        {this.state.loading && <Loading />}
-        {this.state.ranking ? (
-          <ListGroup>
-            this.state.ranking.map(view => ( <ListGroup.Item></ListGroup.Item>{" "}
-            ))
-          </ListGroup>
+        <div
+          style={{
+            position: "absolute",
+            zIndex: 1,
+          }}
+        >
+          <FaSync onClick={this.fetchRanking} />
+        </div>
+        {this.state.loading ? (
+          <Loading />
         ) : (
-          "Ranking not available now"
+          <ListGroup>
+            {this.state.ranklist.map((user) => (
+              <ListGroup.Item
+                as={Link}
+                to={`/user/${user.username}`}
+                target="_blank"
+              >
+                {user.username}{" "}
+                <div style={{ float: "right" }}>{user.score}</div>
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
         )}
       </Jumbotron>
     );

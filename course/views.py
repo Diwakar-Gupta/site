@@ -135,3 +135,22 @@ class Enroll(APIView):
             return Response(status=status.HTTP_201_CREATED)
         return HttpResponseForbidden('cant join')
 
+
+class Ranking(APIView):
+    model = Course
+    slug_url_kwarg = 'course'
+
+    def get_course_object(self):
+        return get_object_or_404(self.model, key=self.kwargs.get(self.slug_url_kwarg))
+
+    def get(self, request, *args, **kwargs):
+        course = self.get_course_object()
+        size = int(request.GET.get('size', 20)) # else 20
+        cp = CourseParticipation.objects.values('score', 'user__user__username').filter(course=course, is_disqualified=False).order_by('-score')[:size]
+        cp = list(cp)
+        for c in cp:
+            c['username'] = c['user__user__username']
+            del c['user__user__username']
+        return Response(cp)
+
+

@@ -1,15 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link, NavLink } from "react-router-dom";
-import {
-  Jumbotron,
-  ListGroup,
-  Breadcrumb,
-  Row,
-  Col,
-} from "react-bootstrap";
-import Loading from "./loading";
-import Ranking from './ranking';
+import { Jumbotron, ListGroup, Breadcrumb, Row, Col } from "react-bootstrap";
+import Loading from "./util/loading";
+import Ranking from "./ranking";
+import BreadCrumb from "./util/breadcrumb";
 
 export default class CourseSubTopics extends Component {
   state = {
@@ -60,23 +55,12 @@ export default class CourseSubTopics extends Component {
     const { problems } = this.state.subtopic || [];
     return (
       <div>
-        <Breadcrumb>
-          <Breadcrumb.Item linkAs={NavLink} linkProps={{ to: "/courses/s/" }}>
-            Courses
-          </Breadcrumb.Item>
-          <Breadcrumb.Item
-            linkAs={NavLink}
-            linkProps={{ to: `/courses/s/${this.state.coursekey}` }}
-          >
-            {this.state.coursekey}
-          </Breadcrumb.Item>
-          <Breadcrumb.Item
-            linkAs={NavLink}
-            linkProps={{ to: `/courses/s/${this.state.subtopic.key}` }}
-          >
-            {this.state.subtopic.name}
-          </Breadcrumb.Item>
-        </Breadcrumb>
+        <BreadCrumb
+          coursename={this.state.coursekey}
+          coursekey={this.state.coursekey}
+          subtopicname={this.state.subtopic.name}
+          subtopicurl={`/courses/s/${this.state.coursekey}/${this.state.topickey}/${this.state.subtopic.key}`}
+        />
         {this.state.loading ? (
           <div className="text-center">
             <Loading />

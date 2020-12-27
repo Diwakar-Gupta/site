@@ -10,8 +10,9 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
-import Loading from "./loading";
-import Ranking from './ranking';
+import Loading from "./util/loading";
+import Ranking from "./ranking";
+import BreadCrumb from "./util/breadcrumb";
 
 export default class Course extends Component {
   state = {
@@ -83,17 +84,10 @@ export default class Course extends Component {
     const { course } = this.state;
     return (
       <div>
-        <Breadcrumb>
-          <Breadcrumb.Item linkAs={NavLink} linkProps={{ to: "/courses/s/" }}>
-            Courses
-          </Breadcrumb.Item>
-          <Breadcrumb.Item
-            linkAs={NavLink}
-            linkProps={{ to: `/courses/s/${this.state.course.key}` }}
-          >
-            {this.state.course.key}
-          </Breadcrumb.Item>
-        </Breadcrumb>
+        <BreadCrumb
+          coursename={this.state.course.name}
+          coursekey={this.state.course.key}
+        />
         {this.state.loading ? (
           <div className="text-center">
             <Loading />
@@ -104,7 +98,7 @@ export default class Course extends Component {
               <div>{this.state.error}</div>
             ) : (
               <Row>
-                <Col md={8}>
+                <Col>
                   <Jumbotron>
                     <h3 className="text-center">{course.name}</h3>
                     <p style={{ fontSize: "larger" }}>
@@ -121,8 +115,8 @@ export default class Course extends Component {
                     </Accordion>
                   </Jumbotron>
                 </Col>
-                <Col>
-                  <Ranking course={this.state.course.key}/>
+                <Col md={4}>
+                  <Ranking course={this.state.course.key} />
                 </Col>
               </Row>
             )}

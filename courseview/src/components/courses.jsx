@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { NavLink, Link } from "react-router-dom";
-import Loading from "./loading";
+import Loading from "./util/loading";
+import BreadCrumb from './util/breadcrumb';
 import {
   Button,
   Card,
@@ -109,11 +110,7 @@ export default class Courses extends Component {
   render() {
     return (
       <div>
-        <Breadcrumb>
-          <Breadcrumb.Item linkAs={NavLink} linkProps={{ to: "/courses/s" }}>
-            Courses
-          </Breadcrumb.Item>
-        </Breadcrumb>
+        <BreadCrumb/>
         {this.state.loading ? (
           <div>
             <Loading />

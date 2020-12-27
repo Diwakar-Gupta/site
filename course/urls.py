@@ -11,7 +11,8 @@ urlpatterns = [
         path('course/<str:course>/', include([
             path('', views.CourseDetail.as_view()),
             path('enroll/', views.Enroll.as_view()),
-            path('<str:topic>/<str:subtopic>/', views.SubTopicDetail.as_view())
+            path('<str:topic>/<str:subtopic>/', views.SubTopicDetail.as_view()),
+            path('rank/', views.Ranking.as_view())
         ]))
     ])),
     path('s/', TemplateView.as_view(template_name='index.html')),
