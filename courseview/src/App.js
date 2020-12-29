@@ -4,6 +4,8 @@ import "./App.css";
 import Courses from "./components/courses";
 import Course from "./components/course";
 import SubTopic from "./components/subtopic";
+import Ranking from "./components/ranking";
+
 
 function Reload() {
   return <div>reload</div>;
@@ -19,6 +21,7 @@ function App() {
           component={SubTopic}
         ></Route>
         <Route path="/courses/s/:coursekey" exact component={Course}></Route>
+        <Route path="/courses/s/:coursekey/ranking" exact component={Ranking}></Route>
         <Route path="/courses/s" exact component={Courses}></Route>
         <Route path="" component={Reload}></Route>
       </Switch>

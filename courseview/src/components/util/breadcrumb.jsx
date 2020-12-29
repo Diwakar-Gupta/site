@@ -12,7 +12,7 @@ export default function BreadCrumb(props) {
   return (
     <Breadcrumb>
       <Breadcrumb.Item href="/">
-        <FaHome />
+        <FaHome size={18} />
       </Breadcrumb.Item>
       <Breadcrumb.Item linkAs={NavLink} linkProps={{ to: "/courses/s/" }}>
         Courses

@@ -2,14 +2,15 @@ import React, { Component } from "react";
 import Loading from "./util/loading";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Jumbotron, ListGroup, Col, Row } from "react-bootstrap";
-import { FaSync } from "react-icons/fa";
+import { Jumbotron, ListGroup } from "react-bootstrap";
+import { FaSync, FaFileExport } from "react-icons/fa";
 
 export default class Ranking extends Component {
   state = {
-    course: this.props.course,
+    course: this.props.course || this.props?.match?.params?.["coursekey"],
     ranklist: [],
     loading: false,
+    size: "10",
   };
 
   componentDidMount() {
@@ -23,7 +24,7 @@ export default class Ranking extends Component {
       });
       axios
         .get(`/courses/api/course/${this.state.course}/rank/`, {
-          params: { size: 10 },
+          params: { size: this.state.size },
         })
         .then((res) => {
           console.log(res.data);
@@ -41,8 +42,23 @@ export default class Ranking extends Component {
     }
   };
 
+  setSize = (event) => {
+    const value = event.target.value;
+    this.setState({
+      size: value,
+    });
+  };
+
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.course != prevState.course) {
+    if (
+      nextProps?.match?.params?.["coursekey"] &&
+      nextProps?.match?.params?.["coursekey"] !== prevState.course
+    ) {
+      return {
+        course: nextProps.course,
+      };
+    }
+    if (nextProps.course && nextProps.course !== prevState.course) {
       return {
         course: nextProps.course,
       };
@@ -53,20 +69,13 @@ export default class Ranking extends Component {
   render() {
     return (
       <Jumbotron>
-        <div
-          style={{
-            position: "absolute",
-            zIndex: 1,
-          }}
-        >
-          <FaSync onClick={this.fetchRanking} />
-        </div>
         {this.state.loading ? (
           <Loading />
         ) : (
           <ListGroup>
             {this.state.ranklist.map((user) => (
               <ListGroup.Item
+                key={user.username}
                 as={Link}
                 to={`/user/${user.username}`}
                 target="_blank"
@@ -75,6 +84,24 @@ export default class Ranking extends Component {
                 <div style={{ float: "right" }}>{user.score}</div>
               </ListGroup.Item>
             ))}
+
+            <div>
+              {this.props.course ? (
+                <Link to={`/courses/s/${this.state.course}/ranking`}>
+                <FaFileExport size={30}/>
+                </Link>
+                
+              ) : (
+                <select onChange={this.setSize}>
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                  <option value="all">all</option>
+                </select>
+              )}
+              <FaSync size={30} onClick={this.fetchRanking} />
+            </div>
           </ListGroup>
         )}
       </Jumbotron>

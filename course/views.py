@@ -145,8 +145,11 @@ class Ranking(APIView):
 
     def get(self, request, *args, **kwargs):
         course = self.get_course_object()
-        size = int(request.GET.get('size', 20)) # else 20
-        cp = CourseParticipation.objects.values('score', 'user__user__username').filter(course=course, is_disqualified=False).order_by('-score')[:size]
+        size = request.GET.get('size', 20) # else 20
+        print(size)
+        cp = CourseParticipation.objects.values('score', 'user__user__username').filter(course=course, is_disqualified=False).order_by('-score')
+        if size != 'all':
+            cp = cp[:int(size)]
         cp = list(cp)
         for c in cp:
             c['username'] = c['user__user__username']

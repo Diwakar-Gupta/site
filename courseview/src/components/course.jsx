@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { NavLink, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Jumbotron,
   Accordion,
   ListGroup,
   Card,
-  Breadcrumb,
   Row,
   Col,
 } from "react-bootstrap";

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Link, NavLink } from "react-router-dom";
-import { Jumbotron, ListGroup, Breadcrumb, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { Jumbotron, ListGroup, Row, Col } from "react-bootstrap";
 import Loading from "./util/loading";
 import Ranking from "./ranking";
 import BreadCrumb from "./util/breadcrumb";
