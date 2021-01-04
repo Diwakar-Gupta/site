@@ -27,6 +27,9 @@ export default class Course extends Component {
     axios
       .get(`/courses/api/course/${this.state.course.key}/`)
       .then((res) => {
+        res.data.topics.sort((a,b) => a.order - b.order)
+        res.data.topics.map( (topic) => topic.subtopics.sort((a,b)=>a.order-b.order))
+        console.log(res.data)
         this.setState({
           loading: false,
           course: res.data,

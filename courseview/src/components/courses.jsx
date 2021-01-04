@@ -60,7 +60,7 @@ export default class Courses extends Component {
       .catch((err) => {
         console.log(err)
         this.setState({
-          error:  err.responst.status===403?err.responst.data : 'some thing wrong happend'
+          error:  err.response.status===403?err.response.data : 'some thing wrong happend'
         })
         setTimeout(() => {
           this.setState({

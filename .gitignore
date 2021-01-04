@@ -6,11 +6,11 @@
 *.mo
 *~
 dmoj/local_settings.py
-resources/style.css
-resources/content-description.css
-resources/ranks.css
-resources/table.css
-resources/martor-description.css
+resources/
 sass_processed
 judge/migrations/
+course/migrations/
 node_modules/
+db.sqlite3
+static
+courseview/.eslintcache

@@ -27,7 +27,7 @@ export default class Ranking extends Component {
           params: { size: this.state.size },
         })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           this.setState({
             loading: false,
             ranklist: res.data,
@@ -69,11 +69,12 @@ export default class Ranking extends Component {
   render() {
     return (
       <Jumbotron>
+        <p>Top Scores</p>
         {this.state.loading ? (
           <Loading />
         ) : (
           <ListGroup>
-            {this.state.ranklist.map((user) => (
+            {this.state.ranklist&&this.state.ranklist.length?this.state.ranklist.map((user) => (
               <ListGroup.Item
                 key={user.username}
                 as={Link}
@@ -83,8 +84,8 @@ export default class Ranking extends Component {
                 {user.username}{" "}
                 <div style={{ float: "right" }}>{user.score}</div>
               </ListGroup.Item>
-            ))}
-
+            )):( <div>No users</div> )}
+            
             <div>
               {this.props.course ? (
                 <Link to={`/courses/s/${this.state.course}/ranking`}>

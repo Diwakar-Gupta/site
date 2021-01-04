@@ -61,7 +61,7 @@ class Course(models.Model):
                                         related_name='organizers+')
     description = models.TextField(verbose_name=_('description'), blank=True)
     problems = models.ManyToManyField(Problem, verbose_name=_('problems'), through='CourseProblem')
-    start_time = models.DateTimeField(verbose_name=_('start time'), db_index=True)
+    #start_time = models.DateTimeField(verbose_name=_('start time'), db_index=True)
     # time_limit = models.DurationField(verbose_name=_('time limit'), blank=True, null=True)
     is_visible = models.BooleanField(verbose_name=_('publicly visible'), default=False,
                                      help_text=_('Should be set even for organization-private courses, where it '
@@ -273,6 +273,14 @@ class Course(models.Model):
     class PrivateCourse(Exception):
         pass
 
+    def can_submit(self, user):
+        if not user.is_authenticated:
+            return False
+        is_banned = self.banned_users.filter(id = user.profile.id).exists()
+        if is_banned or self.is_locked:
+            return False
+        return True
+
     def access_check(self, user):
         # If the user can view all courses
         if user.has_perm('course.see_private_course'):
@@ -423,7 +431,7 @@ class Topic(models.Model):
                 validators=[RegexValidator('^[a-z0-9]+$', _('topic id must be ^[a-z0-9]+$'))])
     name = models.CharField(max_length=100, verbose_name=_('Topic name'))
     course = models.ForeignKey(Course, on_delete=models.CASCADE, db_index=True)
-    order = models.PositiveSmallIntegerField(default=1)
+    order = models.PositiveIntegerField(default=1)
     is_visible = models.BooleanField(default=True)
 
     class Meta:
@@ -441,7 +449,7 @@ class SubTopic(models.Model):
                 validators=[RegexValidator('^[a-z0-9]+$', _('sub topic id must be ^[a-z0-9]+$'))])
     name = models.CharField(max_length=100, verbose_name=_('SubTopic name'))
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, db_index=True)
-    order = models.PositiveSmallIntegerField(default=1)
+    order = models.PositiveIntegerField(default=1)
     is_visible = models.BooleanField(default=True)
 
     class Meta:
@@ -449,6 +457,7 @@ class SubTopic(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
 
 class CourseParticipation(models.Model):
     LIVE = 0
@@ -562,8 +571,7 @@ class CourseProblem(models.Model):
         verbose_name_plural = _('course problems')
     
     def clean(self):
-        if self.subtopic.topic.course != self.course:
-            raise ValidationError('subtopic is not a part of this course')
+        self.course = self.subtopic.topic.course
 
 
 class CourseSubmission(models.Model):
@@ -582,12 +590,18 @@ class CourseSubmission(models.Model):
         verbose_name = _('course submission')
         verbose_name_plural = _('course submissions')
     
-    def update(self):
-        self.participation.score -= self.points
-        self.points = (self.submission.points/self.problem.problem.points)*self.problem.points
+    def update_score(self):
+        ps = CourseSubmission.objects.exclude(id=self.id).filter(participation=self.participation, problem=self.problem).order_by('-submission__points').first()
+        self.points = (self.submission.points*self.problem.points)/self.problem.problem.points
         self.save()
-        self.participation.score += self.submission.points       
-        self.participation.save()
+        if ps:
+            if ps.points<self.points:
+                self.participation.score -= ps.points
+                self.participation.score += self.points
+                self.participation.save()
+        else:
+            self.participation.score += self.points
+            self.participation.save()
 
 
 # class Rating(models.Model):

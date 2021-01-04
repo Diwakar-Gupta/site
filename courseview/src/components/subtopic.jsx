@@ -24,6 +24,7 @@ export default class CourseSubTopics extends Component {
       )
       .then((res) => {
         console.log(res.data);
+        res.data.problems.sort((a,b) => a.order-b.order);
         this.setState({
           loading: false,
           subtopic: res.data,

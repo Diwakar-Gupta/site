@@ -133,7 +133,9 @@ class Enroll(APIView):
         if course.can_join(user):
             course_profile, created = CourseParticipation.objects.get_or_create(course = course, user=user.profile)
             return Response(status=status.HTTP_201_CREATED)
-        return HttpResponseForbidden('cant join')
+        if user.is_anonymous:
+            return HttpResponseForbidden('U need to Sign up')
+        return HttpResponseForbidden('This course is Not for U')
 
 
 class Ranking(APIView):

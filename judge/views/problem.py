@@ -620,17 +620,6 @@ class ProblemSubmit(LoginRequiredMixin, ProblemMixin, TitleMixin, SingleObjectFo
             return generic_message(self.request, _('Too many submissions'),
                                    _('You have exceeded the submission limit for this problem.'))
 
-        if 'course' in self.kwargs:
-            profile = self.request.user.profile
-            from course.models import CourseParticipation, Course, CourseProblem
-            course = get_object_or_404(Course, key=self.kwargs.get('course'))
-            self.course_profile = get_object_or_404(CourseParticipation, course=course, user=profile)
-            problem = Problem.objects.get(code=self.kwargs.get('problem'))
-            course_problem = CourseProblem.objects.filter(course=course, problem=problem)
-            if not course_problem.exists():
-                raise Http404
-            self.course_problem = course_problem.first()
-
         with transaction.atomic():
             self.new_submission = form.save()
 
@@ -670,6 +659,18 @@ class ProblemSubmit(LoginRequiredMixin, ProblemMixin, TitleMixin, SingleObjectFo
 
     def post(self, request, *args, **kwargs):
         try:
+            if 'course' in self.kwargs:
+                profile = self.request.user.profile
+                from course.models import CourseParticipation, Course, CourseProblem
+                course = get_object_or_404(Course, key=self.kwargs.get('course'))
+                if not course.can_submit(request.user):
+                    return HttpResponseForbidden('<h1>Do you want me to ban you or r u already banned?</h1>')
+                self.course_profile = get_object_or_404(CourseParticipation, course=course, user=profile)
+                problem = Problem.objects.get(code=self.kwargs.get('problem'))
+                course_problem = CourseProblem.objects.filter(course=course, problem=problem)
+                if not course_problem.exists():
+                    raise Http404
+                self.course_problem = course_problem.first()
             return super().post(request, *args, **kwargs)
         except Http404:
             # Is this really necessary? This entire post() method could be removed if we don't log this.
