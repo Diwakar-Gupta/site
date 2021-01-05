@@ -22,6 +22,7 @@ admin.site.register(SubTopic, SubTopicAdmin)
 
 class SubTopicInline(admin.TabularInline):
     model = SubTopic
+    show_change_link = True
 
 class TopicAdmin(admin.ModelAdmin):
     inlines = [
@@ -31,12 +32,13 @@ class TopicAdmin(admin.ModelAdmin):
 admin.site.register(Topic, TopicAdmin)
 
 
-class CourseInline(admin.TabularInline):
+class TopicInline(admin.TabularInline):
     model = Topic
+    show_change_link = True
 
 class CourseAdmin(admin.ModelAdmin):
     inlines = [
-        CourseInline,
+        TopicInline,
     ]
 
 admin.site.register(Course, CourseAdmin)

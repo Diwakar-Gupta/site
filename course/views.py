@@ -92,7 +92,7 @@ class SubTopicDetail(APIView):
         self.subtopic = self.get_object()
 
         serializersubtopic = self.serializer_class(self.subtopic).data
-        courseprobelm = CourseProblem.objects.filter(course=self.course, subtopic=self.subtopic)
+        courseprobelm = CourseProblem.objects.filter(course=self.course, subtopic=self.subtopic, is_visible=True)
         probelmserialized = CourseProblemSerializer(courseprobelm, many=True).data
         user = request.user
 

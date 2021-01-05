@@ -5,6 +5,7 @@ from django.core.management.base import BaseCommand
 from course.models import Course, Topic, SubTopic, CourseProblem
 from judge.models import Problem
 
+SUBTOPIC_VISIBLE=True
 courses = [
     {
         'key': 'beginnersCP',
@@ -24,10 +25,17 @@ courses = [
                         'key': 'io',
                         'name': 'Input Output',
                         'order':1,
-                        'is_visible':False,
                         'problems':[
                             {
                                 'problem':'aplusb',
+                                'points':10
+                            },
+                            {
+                                'problem':'reverseinteger',
+                                'points':10
+                            },
+                            {
+                                'problem':'palindrominteger',
                                 'points':10
                             }
                         ]
@@ -36,13 +44,11 @@ courses = [
                         'key': 'loop',
                         'name': 'Loops',
                         'order':2,
-                        'is_visible':False
                     },
                     {
                         'key': 'arraysstrings',
                         'name': 'Arrays and String',
-                        'order':3,
-                        'is_visible':False,   
+                        'order':3, 
                     }
                 ]
             },
@@ -57,19 +63,16 @@ courses = [
                         'key': 'basic',
                         'name': 'Basics',
                         'order':1,
-                        'is_visible':False,
                     },
                     {
                         'key': 'memo',
                         'name': 'Memoization',
                         'order':2,
-                        'is_visible':False
                     },
                     {
                         'key': 'dp',
                         'name': 'Dynamic Programming',
                         'order':3,
-                        'is_visible':False,   
                     }
                 ]
             },
@@ -83,19 +86,16 @@ courses = [
                         'key': 'stackqueue',
                         'name': 'Stack and Queue',
                         'order':1,
-                        'is_visible':False,
                     },
                     {
                         'key': 'linkedlist',
                         'name': 'Linked List',
                         'order':2,
-                        'is_visible':False
                     },
                     {
                         'key': 'tree',
                         'name': 'Tree',
                         'order':3,
-                        'is_visible':False,   
                     }
                 ]
             },
@@ -161,6 +161,7 @@ class Command(BaseCommand):
         for c in courses:
             course, created = Course.objects.get_or_create(key=c['key'])
             if created:
+                print('creating course ' + course.key)
                 course.name = c['name']
                 course.description = c['description']
                 course.is_visible = c['is_visible'] if 'is_visible' in c else False
@@ -170,6 +171,7 @@ class Command(BaseCommand):
             for ti, t in enumerate(c['topics']):
                 topic, created = Topic.objects.get_or_create(key=t['key'], course=course)
                 if created:
+                    print('creating topic ' + topic.key)
                     topic.name = t['name']
                     topic.is_visible = t['is_visible'] if 'is_visible' in t else False
                 topic.order = ti
@@ -179,13 +181,17 @@ class Command(BaseCommand):
                 for sti, st in enumerate(t['sub-topics']):
                     subtopic, created = SubTopic.objects.get_or_create(key=st['key'], topic=topic)
                     if created:
+                        print('creating subtopic '+subtopic.key)
                         subtopic.name = st['name']
-                        subtopic.is_visible = st['is_visible'] if 'is_visible' in st else False
+                        subtopic.is_visible = st['is_visible'] if 'is_visible' in st else SUBTOPIC_VISIBLE
                     subtopic.order = sti
                     subtopic.save()
                     if 'problems' not in st:
                         continue
                     for pi, p in enumerate(st['problems']):
+                        if not Problem.objects.filter(code=p['problem']).exists:
+                            print('problem ' + p['problem'] + ' does not exists')
+                            continue
                         problem = Problem.objects.get(code=p['problem'])
                         cp = CourseProblem(problem=problem, course=course,subtopic=subtopic)
                         if 'points' in p:

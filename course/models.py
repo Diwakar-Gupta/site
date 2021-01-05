@@ -570,6 +570,11 @@ class CourseProblem(models.Model):
         verbose_name = _('course problem')
         verbose_name_plural = _('course problems')
     
+    def save(self, *args, **kwargs):
+        super(CourseProblem, self).save(*args, **kwargs)
+        self.problem.is_public = self.is_visible
+        self.problem.save()
+        
     def clean(self):
         self.course = self.subtopic.topic.course
 
