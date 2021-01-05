@@ -126,6 +126,8 @@ class Course(models.Model):
                                                       'course problem index, and returns a string, the label.')
     is_locked = models.BooleanField(verbose_name=_('course lock'), default=False,
                                     help_text=_('Prevent submissions from this course from being rejudged.'))
+    is_user_enroll_locked = models.BooleanField(verbose_name=_('course enroll lock'), default=False,
+                                    help_text=_('Prevent user Enroll from this course.'))
     points_precision = models.IntegerField(verbose_name=_('precision points'), default=3,
                                            validators=[MinValueValidator(0), MaxValueValidator(10)],
                                            help_text=_('Number of digits to round points to.'))
@@ -213,10 +215,10 @@ class Course(models.Model):
 
     # @cached_property
     def can_join(self, user):
-        if not user.is_authenticated:
+        if (not user.is_authenticated) or self.is_user_enroll_locked or self.is_locked:
             return False
         is_banned = self.banned_users.filter(id = user.profile.id).exists()
-        if is_banned or self.is_locked:
+        if is_banned :
             return False
         
         if user.is_authenticated:
@@ -470,7 +472,7 @@ class CourseParticipation(models.Model):
     cumtime = models.PositiveIntegerField(verbose_name=_('cumulative time'), default=0)
     is_disqualified = models.BooleanField(verbose_name=_('is disqualified'), default=False,
                                           help_text=_('Whether this participation is disqualified.'))
-    tiebreaker = models.FloatField(verbose_name=_('tie-breaking field'), default=0.0)
+    tiebreaker = models.DateTimeField(verbose_name=_('tie-breaking field'), null=True, blank=True)
     format_data = JSONField(verbose_name=_('course format specific data'), null=True, blank=True)
 
     def recompute_results(self):
@@ -603,9 +605,11 @@ class CourseSubmission(models.Model):
             if ps.points<self.points:
                 self.participation.score -= ps.points
                 self.participation.score += self.points
+                self.participation.tiebreaker = self.submission.date
                 self.participation.save()
         else:
             self.participation.score += self.points
+            self.participation.tiebreaker = self.submission.date
             self.participation.save()
 
 

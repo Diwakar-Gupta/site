@@ -105,4 +105,13 @@
             </div>
         {% endif %}
     {% endif %}
+    <a href='?name=fame' style="display: none;" id='reloadSelf'></a>
+    <script>
+        if(!document.location.search){
+            setTimeout(() => {
+                rel=document.getElementById('reloadSelf');
+                rel.click()
+            }, 1500)
+        }
+    </script>
 {% endblock %}

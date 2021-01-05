@@ -14,3 +14,5 @@ node_modules/
 db.sqlite3
 static
 courseview/.eslintcache
+courseview/package-lock.json
+*.log
