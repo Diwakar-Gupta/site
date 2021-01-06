@@ -8,7 +8,7 @@ import { FaSync, FaFileExport } from "react-icons/fa";
 export default class Ranking extends Component {
   state = {
     course: this.props.course || this.props?.match?.params?.["coursekey"],
-    ranklist: [],
+    ranklist: {},
     loading: false,
     size: "10",
   };
@@ -74,7 +74,19 @@ export default class Ranking extends Component {
           <Loading />
         ) : (
           <ListGroup>
-            {this.state.ranklist&&this.state.ranklist.length?this.state.ranklist.map((user) => (
+            {this.state.ranklist.me&&(
+              <ListGroup.Item
+                key={this.state.ranklist.me.username}
+                as={Link}
+                to={`/user/${this.state.ranklist.me.username}`}
+                target="_blank"
+              >
+                {this.state.ranklist.me.username}{" "}
+                <div style={{ float: "right" }}>{this.state.ranklist.me.score}</div>
+              </ListGroup.Item>
+            )}
+            {this.state.ranklist.me&&( <hr/> )}
+            {this.state.ranklist.other&&this.state.ranklist.other.length?this.state.ranklist.other.map((user) => (
               <ListGroup.Item
                 key={user.username}
                 as={Link}

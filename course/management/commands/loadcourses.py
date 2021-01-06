@@ -27,9 +27,24 @@ courses = [
                         'order':1,
                         'problems':[
                             {
+                                'problem':'hellocoder',
+                                'points':5
+                            },
+                            {
                                 'problem':'aplusb',
                                 'points':10
-                            },
+                            }
+                        ]
+                    },
+                    {
+                        'key': 'loop',
+                        'name': 'Loops',
+                        'order':2,
+                    },
+                    {
+                        'key':'numbers',
+                        'name':'Numbers',
+                        'problems':[
                             {
                                 'problem':'reverseinteger',
                                 'points':10
@@ -41,14 +56,9 @@ courses = [
                         ]
                     },
                     {
-                        'key': 'loop',
-                        'name': 'Loops',
-                        'order':2,
-                    },
-                    {
                         'key': 'arraysstrings',
                         'name': 'Arrays and String',
-                        'order':3, 
+                        'order':3,
                     }
                 ]
             },
@@ -159,8 +169,8 @@ class Command(BaseCommand):
         print('handle')
         
         for c in courses:
-            course, created = Course.objects.get_or_create(key=c['key'])
-            if created:
+            course, createdc = Course.objects.get_or_create(key=c['key'])
+            if createdc:
                 print('creating course ' + course.key)
                 course.name = c['name']
                 course.description = c['description']
@@ -169,8 +179,8 @@ class Command(BaseCommand):
             if 'topics' not in c:
                 continue
             for ti, t in enumerate(c['topics']):
-                topic, created = Topic.objects.get_or_create(key=t['key'], course=course)
-                if created:
+                topic, createdt = Topic.objects.get_or_create(key=t['key'], course=course)
+                if createdt:
                     print('creating topic ' + topic.key)
                     topic.name = t['name']
                     topic.is_visible = t['is_visible'] if 'is_visible' in t else False
@@ -179,8 +189,8 @@ class Command(BaseCommand):
                 if 'sub-topics' not in t:
                     continue
                 for sti, st in enumerate(t['sub-topics']):
-                    subtopic, created = SubTopic.objects.get_or_create(key=st['key'], topic=topic)
-                    if created:
+                    subtopic, createdst = SubTopic.objects.get_or_create(key=st['key'], topic=topic)
+                    if createdst:
                         print('creating subtopic '+subtopic.key)
                         subtopic.name = st['name']
                         subtopic.is_visible = st['is_visible'] if 'is_visible' in st else SUBTOPIC_VISIBLE
@@ -194,6 +204,8 @@ class Command(BaseCommand):
                             continue
                         problem = Problem.objects.get(code=p['problem'])
                         cp = CourseProblem(problem=problem, course=course,subtopic=subtopic)
+                        if not createdc:
+                            continue
                         if 'points' in p:
                             cp.points = p['points']
                         if 'order' in p:

@@ -149,13 +149,26 @@ class Ranking(APIView):
         course = self.get_course_object()
         size = request.GET.get('size', 20) # else 20
         print(size)
-        cp = CourseParticipation.objects.values('score', 'user__user__username').filter(course=course, is_disqualified=False).order_by('-score')
+        cp = CourseParticipation.objects.values('score', 'user__user__username').filter(course=course, is_disqualified=False).order_by('-score', 'tiebreaker')
         if size != 'all':
             cp = cp[:int(size)]
         cp = list(cp)
+        retd = {
+            'other':cp
+        }
+        user = request.user
+        if user.is_authenticated:
+            myprofile = CourseParticipation.objects.filter(course=course, user=user.profile).values('score', 'user__user__username')
+            print(myprofile)
+            if myprofile.exists():
+                myprofile = myprofile[0]
+                retd['me'] = myprofile
+                myprofile['username'] = myprofile['user__user__username']
+                del myprofile['user__user__username']
         for c in cp:
             c['username'] = c['user__user__username']
             del c['user__user__username']
-        return Response(cp)
+        
+        return Response(retd)
 
 
