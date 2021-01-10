@@ -74,7 +74,9 @@ export default class Courses extends Component {
     return (
       <Card key={course.key}>
         <Card.Body>
-          <Card.Title>{course.name}</Card.Title>
+          <Card.Title>{course.name}
+            <div style={{float:'right', color: '#a7a788'}}>{course.user_count}</div>
+          </Card.Title>
           <Card.Text
             className="text-muted"
             style={{ minHeight: "1rem" }}

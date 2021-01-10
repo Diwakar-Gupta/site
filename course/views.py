@@ -132,6 +132,8 @@ class Enroll(APIView):
         course = self.get_course_object()
         if course.can_join(user):
             course_profile, created = CourseParticipation.objects.get_or_create(course = course, user=user.profile)
+            course.user_count+=1
+            course.save()
             return Response(status=status.HTTP_201_CREATED)
         if user.is_anonymous:
             return HttpResponseForbidden('U need to Sign up')

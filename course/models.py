@@ -496,6 +496,12 @@ class CourseParticipation(models.Model):
             self.course.banned_users.remove(self.user)
     set_disqualified.alters_data = True
 
+    def delete(self, *args, **kwargs):
+        course = self.course
+        super(CourseParticipation, self).delete(*args, **kwargs)
+        course.user_count -= 1
+        course.save()
+
     # @property
     # def live(self):
     #     return self.virtual == self.LIVE
@@ -600,6 +606,7 @@ class CourseSubmission(models.Model):
     def update_score(self):
         ps = CourseSubmission.objects.exclude(id=self.id).filter(participation=self.participation, problem=self.problem).order_by('-submission__points').first()
         self.points = (self.submission.points*self.problem.points)/self.problem.problem.points
+        self.points = int(self.points)
         self.save()
         if ps:
             if ps.points<self.points:
