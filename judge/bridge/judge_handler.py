@@ -422,7 +422,7 @@ class JudgeHandler(ZlibPacketHandler):
             participation = submission.contest.participation
             event.post('contest_%d' % participation.contest_id, {'type': 'update'})
 
-        if hasattr(submission, 'course'):
+        if submission.course_problem_object:
             course_submission = submission.course
             # participation = submission.course.participation
             course_submission.update_score()

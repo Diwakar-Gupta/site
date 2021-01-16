@@ -644,6 +644,8 @@ class ProblemSubmit(LoginRequiredMixin, ProblemMixin, TitleMixin, SingleObjectFo
             from course.models import CourseSubmission
             course_submission = CourseSubmission(participation=self.course_profile, submission=self.new_submission, problem=self.course_problem)
             course_submission.save()
+            self.new_submission.course_problem_object = self.course_problem.subtopic
+            self.new_submission.save()
 
         return super().form_valid(form)
 
@@ -663,6 +665,7 @@ class ProblemSubmit(LoginRequiredMixin, ProblemMixin, TitleMixin, SingleObjectFo
                 profile = self.request.user.profile
                 from course.models import CourseParticipation, Course, CourseProblem
                 course = get_object_or_404(Course, key=self.kwargs.get('course'))
+                self.course = course
                 if not course.can_submit(request.user):
                     return HttpResponseForbidden('<h1>Do you want me to ban you or r u already banned?</h1>')
                 self.course_profile = get_object_or_404(CourseParticipation, course=course, user=profile)

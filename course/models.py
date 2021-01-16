@@ -14,6 +14,8 @@ from moss import MOSS_LANG_C, MOSS_LANG_CC, MOSS_LANG_JAVA, MOSS_LANG_PYTHON
 from judge.models.problem import Problem
 from judge.models.profile import Organization, Profile
 from judge.models.submission import Submission
+import datetime
+from django.db.models import Max, Min, Sum
 # from judge.ratings import rate_course
 
 __all__ = ['Course', 'Topic','SubTopic', 'CourseParticipation', 'CourseProblem', 'CourseSubmission']
@@ -22,35 +24,6 @@ __all__ = ['Course', 'Topic','SubTopic', 'CourseParticipation', 'CourseProblem',
 class MinValueOrNoneValidator(MinValueValidator):
     def compare(self, a, b):
         return a is not None and b is not None and super().compare(a, b)
-
-
-# class courseTag(models.Model):
-#     color_validator = RegexValidator('^#(?:[A-Fa-f0-9]{3}){1,2}$', _('Invalid colour.'))
-
-#     name = models.CharField(max_length=20, verbose_name=_('tag name'), unique=True,
-#                             validators=[RegexValidator(r'^[a-z-]+$', message=_('Lowercase letters and hyphens only.'))])
-#     color = models.CharField(max_length=7, verbose_name=_('tag colour'), validators=[color_validator])
-#     description = models.TextField(verbose_name=_('tag description'), blank=True)
-
-#     def __str__(self):
-#         return self.name
-
-#     def get_absolute_url(self):
-#         return reverse('course_tag', args=[self.name])
-
-#     @property
-#     def text_color(self, cache={}):
-#         if self.color not in cache:
-#             if len(self.color) == 4:
-#                 r, g, b = [ord(bytes.fromhex(i * 2)) for i in self.color[1:]]
-#             else:
-#                 r, g, b = [i for i in bytes.fromhex(self.color[1:])]
-#             cache[self.color] = '#000' if 299 * r + 587 * g + 144 * b > 140000 else '#fff'
-#         return cache[self.color]
-
-#     class Meta:
-#         verbose_name = _('course tag')
-#         verbose_name_plural = _('course tags')
 
 
 class Course(models.Model):
@@ -445,12 +418,16 @@ class Topic(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    def update_score(self,participation):
+        obj, _ = TopicScore.objects.get_or_create(topic=self, participation=participation)
+        obj.update_score()
+        
 
 class SubTopic(models.Model):
     key = models.CharField(max_length=20, verbose_name=_('sub topic id'),
                 validators=[RegexValidator('^[a-z0-9]+$', _('sub topic id must be ^[a-z0-9]+$'))])
     name = models.CharField(max_length=100, verbose_name=_('SubTopic name'))
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE, db_index=True)
+    topic = models.ForeignKey(Topic, related_name='subtopics', on_delete=models.CASCADE, db_index=True)
     order = models.PositiveIntegerField(default=1)
     is_visible = models.BooleanField(default=True)
 
@@ -459,6 +436,10 @@ class SubTopic(models.Model):
 
     def __str__(self) -> str:
         return self.name
+    
+    def update_score(self, participation):
+        obj, _ = SubTopicScore.objects.get_or_create(subtopic=self, participation=participation)
+        obj.update_score()
 
 
 class CourseParticipation(models.Model):
@@ -502,56 +483,19 @@ class CourseParticipation(models.Model):
         course.user_count -= 1
         course.save()
 
-    # @property
-    # def live(self):
-    #     return self.virtual == self.LIVE
-
-    # @property
-    # def spectate(self):
-    #     return self.virtual == self.SPECTATE
-
-    # @cached_property
-    # def start(self):
-    #     course = self.course
-    #     return course.start_time if course.time_limit is None and (self.live or self.spectate) else self.real_start
-
-    # @cached_property
-    # def end_time(self):
-    #     course = self.course
-    #     if self.spectate:
-    #         return course.end_time
-    #     if self.virtual:
-    #         if course.time_limit:
-    #             return self.real_start + course.time_limit
-    #         else:
-    #             return self.real_start + (course.end_time - course.start_time)
-    #     return course.end_time if course.time_limit is None else \
-    #         min(self.real_start + course.time_limit, course.end_time)
-
+    def update_score(self):
+        points = TopicScore.objects.filter(participation=self).aggregate(points = Sum('score'))['points']
+        self.score = points
+        self.save()
+        return points
+    
     @cached_property
     def _now(self):
         # This ensures that all methods talk about the same now.
         return timezone.now()
 
-    # @property
-    # def ended(self):
-    #     return self.end_time is not None and self.end_time < self._now
-
-    # @property
-    # def time_remaining(self):
-    #     end = self.end_time
-    #     if end is not None and end >= self._now:
-    #         return end - self._now
-
     def __str__(self) -> str:
         return self.user.user.username
-
-    # def __str__(self):
-    #     if self.spectate:
-    #         return gettext('%s spectating in %s') % (self.user.username, self.course.name)
-    #     if self.virtual:
-    #         return gettext('%s in %s, v%d') % (self.user.username, self.course.name, self.virtual)
-    #     return gettext('%s in %s') % (self.user.username, self.course.name)
 
     class Meta:
         verbose_name = _('course participation')
@@ -560,14 +504,74 @@ class CourseParticipation(models.Model):
         unique_together = ('course', 'user')
 
 
+class TopicScore(models.Model):
+    topic = models.ForeignKey(Topic, related_name='score_object', on_delete=models.CASCADE)
+    participation = models.ForeignKey(CourseParticipation, on_delete=models.CASCADE, db_index=True)
+    score = models.IntegerField(default=0)
+
+    def update_score(self):
+        points = SubTopicScore.objects.filter(participation=self.participation).aggregate(points = Sum('score'))['points']
+        self.score = points
+        self.save()
+        self.participation.update_score()
+        return points
+
+
+class SubTopicScore(models.Model):
+    subtopic = models.ForeignKey(SubTopic, related_name='score_object', on_delete=models.CASCADE)
+    participation = models.ForeignKey(CourseParticipation, on_delete=models.CASCADE, db_index=True)
+    score = models.IntegerField(default=0)
+
+    def recal(self):
+        pass
+
+    def update_score(self):
+        tiebreaker = None
+        points = 0
+        format_data = {}
+        for result in CourseSubmission.objects.filter(submission__course_problem_object=self.subtopic, participation=self.participation).values('problem_id').annotate(time=Min('submission__date'), points=Max('points')):
+            if tiebreaker is None:
+                tiebreaker = result['time']
+            else:
+                tiebreaker = max(result['time'], tiebreaker)
+            points += result['points']
+
+        self.score = points
+        self.save()
+        self.participation.tiebreaker = tiebreaker
+        self.participation.save()
+        self.subtopic.topic.update_score(self.participation)
+
+
+class DevItem(models.Model):
+    key = models.CharField(max_length=20, verbose_name=_('item id'),
+                           validators=[RegexValidator('^[a-z0-9]+$', _('course id must be ^[a-z0-9]+$'))])
+    name = models.CharField(max_length=30)
+    description = models.TextField(verbose_name=_('description content md file'))
+
+
+class CourseDevItem(models.Model):
+    devitem = models.ForeignKey(DevItem, verbose_name=_('devitem'), related_name='courses', on_delete=CASCADE)
+    course = models.ForeignKey(Course, verbose_name=_('course'), related_name='course_devitems', on_delete=CASCADE)
+    subtopic = models.ForeignKey(SubTopic, on_delete=models.CASCADE)
+    order = models.PositiveIntegerField(verbose_name=_('order'))
+    is_visible = models.BooleanField(default=True)
+
+    class Meta:
+        unique_together = ('devitem', 'course')
+        index_together = ('subtopic', 'order')
+        verbose_name = _('course devitem')
+        verbose_name_plural = _('course devitem')
+
+
 class CourseProblem(models.Model):
-    problem = models.ForeignKey(Problem, verbose_name=_('problem'), related_name='courses', on_delete=CASCADE)
+    problem = models.ForeignKey(Problem, verbose_name=_('problem'), related_name='course_problems', on_delete=CASCADE)
     course = models.ForeignKey(Course, verbose_name=_('course'), related_name='course_problems', on_delete=CASCADE)
     points = models.IntegerField(verbose_name=_('points'))
     partial = models.BooleanField(default=True, verbose_name=_('partial'))
     is_pretested = models.BooleanField(default=False, verbose_name=_('is pretested'))
     is_visible = models.BooleanField(default=True)
-    subtopic = models.ForeignKey(SubTopic, on_delete=models.CASCADE)
+    subtopic = models.ForeignKey(SubTopic, on_delete=models.CASCADE, related_name='problem')
     order = models.PositiveIntegerField(verbose_name=_('order'))
     output_prefix_override = models.IntegerField(verbose_name=_('output prefix length override'),
                                                  default=0, null=True, blank=True)
@@ -603,11 +607,18 @@ class CourseSubmission(models.Model):
         verbose_name = _('course submission')
         verbose_name_plural = _('course submissions')
     
+    def delete(self, *args, **kwargs):
+        super(CourseSubmission, self).delete(*args, **kwargs)
+        
+    def updatetopicscore(self):
+        self.problem.subtopic.update_score(self.participation)
+
     def update_score(self):
-        ps = CourseSubmission.objects.exclude(id=self.id).filter(participation=self.participation, problem=self.problem).order_by('-submission__points').first()
         self.points = (self.submission.points*self.problem.points)/self.problem.problem.points
         self.points = int(self.points)
         self.save()
+        self.updatetopicscore()
+        return self.points
         if ps:
             if ps.points<self.points:
                 self.participation.score -= ps.points

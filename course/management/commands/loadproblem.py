@@ -29,6 +29,7 @@ class Command(BaseCommand):
             problem.name = problemjson['name']
             problem.description = problemjson['description']
             problem.points = problemjson['points']
+            problem.is_public = problemjson['is_public'] if 'is_public' in problemjson else True
             problem.memory_limit = problemjson['memory_limit'] if 'memory_limit' in problemjson else 65536
             problem.time_limit = problemjson['time_limit'] if 'time_limit' in problemjson else 10
             problem.group = group

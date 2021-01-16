@@ -23,23 +23,20 @@ courses = [
                 'sub-topics':[
                     {
                         'key': 'io',
-                        'name': 'Input Output',
+                        'name': 'Getting Started',
                         'order':1,
                         'problems':[
                             {
                                 'problem':'hellocoder',
                                 'points':5
-                            },
-                            {
+                            },{
+                                'problem': 'printinput',
+                                'points': 5
+                            },{
                                 'problem':'aplusb',
                                 'points':10
                             }
                         ]
-                    },
-                    {
-                        'key': 'loop',
-                        'name': 'Loops',
-                        'order':2,
                     },
                     {
                         'key':'numbers',
@@ -52,6 +49,10 @@ courses = [
                             {
                                 'problem':'palindrominteger',
                                 'points':10
+                            },
+                            {
+                                'problem': 'twiceand',
+                                'points': 10
                             }
                         ]
                     },
@@ -59,7 +60,35 @@ courses = [
                         'key': 'arraysstrings',
                         'name': 'Arrays and String',
                         'order':3,
+                        'problems': [
+                            {
+                                'problem': '2sum',
+                                'points': 10
+                            },{
+                                'problem': '3sum',
+                                'points': 10
+                            },{
+                                'problem': '3sumclosest',
+                                'points': 10
+                            },
+                            {
+                                'problem': 'countalphabets',
+                                'points': 10
+                            }
+                        ]
+                    },
+                    {
+                        'key': '2darray',
+                        'name': '2D Arrays',
+                        'order':3,
+                        'problems': [
+                            {
+                                'problem':'spiralmatrix',
+                                'points':10
+                            }
+                        ]
                     }
+                    
                 ]
             },
             
@@ -75,14 +104,32 @@ courses = [
                         'order':1,
                     },
                     {
-                        'key': 'memo',
-                        'name': 'Memoization',
+                        'key': 'recursionarray',
+                        'name': 'Recursion in Array',
                         'order':2,
                     },
                     {
-                        'key': 'dp',
-                        'name': 'Dynamic Programming',
+                        'key': 'recbacktrack',
+                        'name': 'Recursion and Backtracking',
                         'order':3,
+                        'problems':[
+                            
+                        ]
+                    }
+                ]
+            },{
+                'key': 'basicdp',
+                'name': 'Dynamic Programming',
+                'order':5,
+                'is_visible':True,
+                'sub-topics': [
+                    {
+                        'key': 'dpgreedy',
+                        'name': 'Dynamic Programming and Greedy',
+                        'order':3,
+                        'problems':[
+                            
+                        ]
                     }
                 ]
             },
@@ -137,7 +184,85 @@ courses = [
         'description':'''
             Intermediate means someone who has just learned Python, but already has a relatively strong programming background from before. He should be able to solve problems which may involve 3 or 3 Python classes or functions. The answers cannot be directly be found in the textbooks.
         ''',
-        'is_visible': True
+        'is_visible': True,
+        'topics': [
+            {
+                'key': 'concepts',
+                'name': 'Building Concepts',
+                'is_visible':True,
+                'sub-topics':[
+                    {
+                        'key': 'recursion',
+                        'name': 'Recursion',
+                        'problems':[
+                        ]
+                    },{
+                        'key': 'bit',
+                        'name': 'Bit manipulation',
+                        'problems':[
+                        ]
+                    },
+                    {
+                        'key': 'dp',
+                        'name': 'Dynamic Programming',
+                        'problems':[
+                        ]
+                    }
+                ]
+            },{
+                'key': 'ds',
+                'name': 'Data Structure',
+                'is_visible':True,
+                'sub-topics':[
+                    {
+                        'key': 'linkedlist',
+                        'name': 'Linked List',
+                        'problems':[
+                        ]
+                    },{
+                        'key': 'hashmapheap',
+                        'name': 'Hashmap and Heap',
+                        'problems':[
+                        ]
+                    },
+                    {
+                        'key': 'generictree',
+                        'name': 'Generic Trees',
+                        'problems':[
+                        ]
+                    },{
+                        'key': 'binarytree',
+                        'name': 'Binary Trees',
+                        'problems':[
+                        ]
+                    },{
+                        'key': 'bsttree',
+                        'name': 'BST AVl Tree',
+                        'problems':[
+                        ]
+                    },
+                    {
+                        'key': 'graph',
+                        'name': 'Graphs',
+                        'problems':[
+                        ]
+                    }
+                ]
+            },{
+                'key': 'competitive',
+                'name': 'Competitive',
+                'is_visible':True,
+                'sub-topics':[
+                    {
+                        'key': 'rangequery',
+                        'name': 'Range Query',
+                        'problems':[
+                        ]
+                    }
+            
+                ]
+            }
+        ]
     },
     {
         'key': 'advancedCP',

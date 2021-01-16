@@ -9,7 +9,7 @@ urlpatterns = [
     path('api/', include([
         path('courses/', views.ObjectList.as_view()),
         path('course/<str:course>/', include([
-            path('', views.CourseDetail.as_view()),
+            path('', views.CourseDetail.as_view(), name='course_view'),
             path('enroll/', views.Enroll.as_view()),
             path('<str:topic>/<str:subtopic>/', views.SubTopicDetail.as_view()),
             path('rank/', views.Ranking.as_view())
@@ -17,4 +17,5 @@ urlpatterns = [
     ])),
     path('s/', TemplateView.as_view(template_name='index.html')),
     path('s/<path:resource>', TemplateView.as_view(template_name='index.html')),
+    # path('course/<str:course>/<str:topic>/<str:subtopic>/stat/', views.CourseSubTopicStats.as_view())
 ]

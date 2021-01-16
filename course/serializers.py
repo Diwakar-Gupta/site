@@ -1,11 +1,25 @@
-from .models import Course, CourseProblem, Topic, SubTopic
+from .models import Course, CourseProblem, Topic, SubTopic, DevItem, CourseDevItem
 from judge.models import Problem
 from rest_framework import serializers
 
 
+class DevItemListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DevItem
+        fields = ['key', 'name']
+
+
+class CourseDevItemSerializer(serializers.ModelSerializer):
+    devitem = DevItemListSerializer
+
+    class Meta:
+        model = CourseDevItem
+        fields = ['order']
+
+
 class ProblemListSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CourseProblem
+        model = Problem
         fields = ['code', 'name']
 
 
